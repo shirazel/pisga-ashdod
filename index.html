@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>הכלים שלא הכרתם · פסגה אשדוד</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#0181C9;--panel:#2B78C5;--deep:#0B4F7C;--teal:#6BE3D1;--soft:#EEF8F6;--line:#E3ECEF;--orange:#FA7548;--pink:#E2448F;--ink:#2F3437;--muted:#5E686D}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:#EEF4F6;font-family:'Heebo',sans-serif;direction:rtl;color:var(--ink)}
+#vp{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#stage{width:1600px;height:900px;flex:0 0 auto;position:relative;background:#F7FAFB;transform-origin:center;overflow:hidden}
+#stage::before{content:'';position:absolute;width:680px;height:680px;border-radius:50%;background:radial-gradient(circle,rgba(107,227,209,.30),rgba(107,227,209,0) 70%);top:-280px;right:-200px}
+#stage::after{content:'';position:absolute;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(226,68,143,.10),rgba(226,68,143,0) 70%);bottom:-300px;left:-180px}
+
+/* דף מרכזי, בפרופורציות של הג'ניאלי */
+.sheet{position:absolute;top:40px;bottom:46px;right:110px;left:110px;background:#fff;border-radius:28px;box-shadow:0 18px 50px rgba(11,79,124,.14);z-index:1;display:flex;flex-direction:column;align-items:center;padding:34px 60px 18px}
+.sheet::before{content:'';position:absolute;top:0;right:60px;left:60px;height:6px;border-radius:0 0 6px 6px;background:linear-gradient(90deg,var(--teal),var(--blue),var(--pink))}
+.logo{position:absolute;top:22px;left:30px;height:66px}
+.eyebrow{display:flex;gap:10px}
+.eyebrow span{background:#EAF4FB;color:var(--deep);border-radius:999px;padding:5px 16px;font-size:17px;font-weight:700}
+h1{margin:12px 0 0;font-size:46px;font-weight:700;color:var(--deep);text-align:center;line-height:1.15}
+.sub{margin:8px 0 0;font-size:23px;color:var(--muted);text-align:center}
+
+/* המפגשים: לוח כחול עם כרטיסים לבנים, כמו במסך השיעור */
+.grid{flex:0 0 auto;height:500px;width:92%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:14px;margin:20px 0 12px;background:var(--panel);border-radius:22px;padding:20px}
+.s{background:#fff;border-radius:16px;padding:14px 18px;min-height:0;overflow:hidden;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--ink);position:relative;transition:.25s}
+.s .top{display:flex;align-items:center;gap:12px}
+.s .n{width:46px;height:46px;border-radius:50%;background:var(--pink);color:#fff;font-size:25px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.s .d{font-size:23px;font-weight:700;color:var(--blue)}
+.s h2{margin:0;font-size:23px;font-weight:700;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s .desc{margin:0;font-size:16.5px;line-height:1.35;color:var(--muted)}
+.s .t{margin-top:auto;align-self:flex-start;font-size:16px;font-weight:700;color:var(--deep);background:#EAF4FB;border-radius:999px;padding:3px 12px}
+.s .t.task{background:#FFF4CF;color:#6B5A00}
+a.s:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(0,0,0,.2)}
+a.s .go{position:absolute;top:22px;left:18px;background:var(--orange);color:var(--ink);font-weight:700;font-size:18px;border-radius:999px;padding:6px 20px}
+.s.soon{background:#E6F0F9}
+.s.soon .n{background:#9DB6CB}
+.s.soon h2{color:#4C5C68}
+.s.soon .d{color:#6F8AA0}
+
+/* בתמיכת */
+.partners{flex:1;display:flex;align-items:center;justify-content:center;gap:50px;border-top:1px solid var(--line);padding-top:8px;width:100%}
+.partners span{font-size:17px;font-weight:700;color:var(--muted)}
+.partners img{height:84px;width:auto}
+
+.sig{position:absolute;bottom:18px;left:0;right:0;text-align:center;font-size:14px;color:var(--muted);z-index:2}
+.sig a{color:inherit}
+.grid{grid-template-columns:minmax(0,560px);grid-template-rows:1fr;justify-content:center;height:380px;width:auto;padding:24px 60px}
+</style>
+</head>
+<body>
+<div id="vp"><div id="stage">
+  <div class="sheet">
+    <img class="logo" src="assets/lomdot-logo-no-tagline.png" alt="לומדות">
+    <div class="eyebrow"><span>מפגש למורים</span><span>פסגה אשדוד</span><span>תשפ"ז</span></div>
+    <h1>הכלים של הבינה המלאכותית שלא הכרתם</h1>
+    <p class="sub">Gemini ו-ChatGPT בעבודת המורה · בהנחיית שירה רוט זליקוביץ</p>
+    <div class="grid" id="grid"></div>
+  </div>
+  <div class="sig">© שירה רוט זליקוביץ · הוראה יצירתית עם AI · <a href="https://wa.me/972523930628" target="_blank" rel="noopener">ווטסאפ</a> · <a href="https://www.lomdot.org/" target="_blank" rel="noopener">להזמנת סדנאות בינה מלאכותית</a></div>
+</div></div>
+
+<script>
+/* page = עמוד המפגש. מפגש בלי page מוצג "בקרוב".
+   openAt = מתי העמוד נפתח (שעון ישראל). עד אז הכרטיס מוצג "בקרוב" */
+const SESSIONS=[
+ {date:'24.11',type:'פרונטלי',title:'הכלים שלא הכרתם',desc:'פרומפט טוב, משימות מתוזמנות, דרייב, סקילים, Storybook וחדרי אתגר',page:'lesson-1.html',openAt:'2026-11-24T12:00:00+02:00'}
+];
+const isOpen=s=>s.page&&(!s.openAt||Date.now()>=Date.parse(s.openAt));
+function drawCards(){document.getElementById('grid').innerHTML=SESSIONS.map((s,i)=>{
+  const inner=`<div class="top"><span class="n">${i+1}</span><span class="d">${s.date}</span></div><h2>${s.title}</h2><p class="desc">${s.desc||''}</p><span class="t${s.type==='מטלה'?' task':''}">${s.type}</span>`;
+  return isOpen(s)?`<a class="s" href="${s.page}">${inner}<span class="go">כניסה</span></a>`:`<div class="s soon">${inner}</div>`;
+}).join('')}
+drawCards();
+/* אם העמוד פתוח כשמגיעה שעת הפתיחה, הכרטיס נפתח לבד */
+SESSIONS.forEach(s=>{const w=s.openAt?Date.parse(s.openAt)-Date.now():0;if(w>0&&w<864e5)setTimeout(drawCards,w+500)});
+function fit(){const s=Math.min(innerWidth/1600,innerHeight/900);document.getElementById('stage').style.zoom=s}
+addEventListener('resize',fit);fit();
+</script>
+<script>/* העמוד לא זז: מחזיר כל גלילה למקום */
+(function(){const vp=document.getElementById('vp');const r=()=>{if(vp&&(vp.scrollTop||vp.scrollLeft)){vp.scrollTop=0;vp.scrollLeft=0}if(scrollX||scrollY)scrollTo(0,0);document.documentElement.scrollTop=0;document.body.scrollTop=0};addEventListener('scroll',e=>{if(e.target===document||e.target===vp||e.target===document.body||e.target===document.documentElement)r()},true);addEventListener('resize',r);r()})();</script>
+</body>
+</html>
