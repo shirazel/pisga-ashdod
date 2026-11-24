@@ -125,6 +125,17 @@ p{margin:0}
 .prow .rimg{width:440px}
 .many{display:flex;gap:16px}.many img{height:300px;border-radius:14px;border:1px solid var(--line)}
 .parr{font-size:70px;color:var(--cyan);text-shadow:0 0 20px var(--cyan)}
+/* ===== הגדלה: תמונה או סרטון על כל המסך ===== */
+.grow img,.prow img,.many img{cursor:zoom-in}
+.vbig{position:absolute;top:22px;left:50%;transform:translateX(-50%);width:46px;height:46px;border-radius:50%;border:0;background:rgba(7,11,31,.7);color:#fff;font-size:22px;cursor:pointer;opacity:0;transition:opacity .2s}
+.vc:hover .vbig,.vbig:focus-visible{opacity:1}
+#lb{position:absolute;inset:0;z-index:20;background:rgba(3,5,15,.94);display:none;align-items:center;justify-content:center}
+#lb.on{display:flex}
+#lb .lbin{display:flex;align-items:center;justify-content:center;max-width:1500px;max-height:840px}
+#lb img{max-width:1500px;max-height:840px;border-radius:18px;box-shadow:0 0 80px rgba(139,92,246,.45)}
+#lb img.round{border-radius:50%;max-height:820px}
+#lb .vc{cursor:pointer}
+.lbx{position:absolute;top:30px;left:40px;width:56px;height:56px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.08);color:#fff;font-size:34px;cursor:pointer;z-index:2}
 /* ===== משפט ===== */
 .statement{align-items:center;justify-content:center;text-align:center;flex-direction:column;gap:10px}
 .statement h2{font-size:150px}
@@ -219,6 +230,7 @@ p{margin:0}
 <div id="bar"></div>
 <div id="slides"></div>
 <div class="hud" aria-hidden="true"><i></i><i></i><i></i><i></i><div class="st"><span class="dot"></span><b>LIVE</b><span>פסגה אשדוד</span><span>24.11</span><span id="hudn"></span></div></div>
+<div id="lb" role="dialog" aria-modal="true" aria-label="הגדלה"><button class="lbx" type="button" aria-label="סגירה">&times;</button><div class="lbin"></div></div>
 <div id="nav"><button id="prev" type="button" aria-label="השקופית הקודמת">&rarr;</button><span id="cnt"></span><button id="next" type="button" aria-label="השקופית הבאה">&larr;</button></div>
 </div></div>
 
@@ -271,7 +283,7 @@ const SLIDES=[
 
 /* ============ בונים את השקופיות ============ */
 /* סרטון בתוך עיגול: מציגים רק את העיגול מתוך הסרטון (cx, cy, r בפיקסלים של סרטון ברוחב 1280) */
-function vcircle(v,D){const k=D/(2*v.r);return `<div class="vc" style="width:${D}px;height:${D}px"><video src="${v.src}" playsinline preload="metadata" style="width:${1280*k}px;left:${-(v.cx-v.r)*k}px;top:${-(v.cy-v.r)*k}px"></video><button class="vplay" type="button" aria-label="הפעלה">&#9654;</button></div>`}
+function vcircle(v,D){const k=D/(2*v.r);return `<div class="vc" data-v='${JSON.stringify(v)}' style="width:${D}px;height:${D}px"><video src="${v.src}" playsinline preload="metadata" style="width:${1280*k}px;left:${-(v.cx-v.r)*k}px;top:${-(v.cy-v.r)*k}px"></video><button class="vplay" type="button" aria-label="הפעלה">&#9654;</button><button class="vbig" type="button" aria-label="מסך מלא">&#x2922;</button></div>`}
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 let pid=0;
 const prBox=t=>{const id='p'+(++pid);return `<div class="pr"><small>// פרומפט</small><span id="${id}">${esc(t)}</span><br><button class="btn" type="button" data-copy="${id}">העתקה</button></div>`};
@@ -319,7 +331,7 @@ function heroRun(){const sec=document.querySelector('.hero'),tb=document.getElem
 
 /* ============ מעבר בין שקופיות ============ */
 const S=[...document.querySelectorAll('.s')];let i=-1;
-function show(n){n=Math.max(0,Math.min(S.length-1,n));const same=n===i;i=n;S.forEach((s,k)=>s.classList.toggle('on',k===i));
+function show(n){if(LB.classList.contains('on'))lbClose();n=Math.max(0,Math.min(S.length-1,n));const same=n===i;i=n;S.forEach((s,k)=>s.classList.toggle('on',k===i));
   document.getElementById('cnt').textContent=(i+1)+' / '+S.length;document.getElementById('hudn').textContent='['+String(i+1).padStart(2,'0')+'/'+S.length+']';document.getElementById('bar').style.width=((i+1)/S.length*100)+'%';
   S[i].querySelectorAll('iframe[data-src]').forEach(f=>{if(!f.src)f.src=f.dataset.src});
   /* טוענים מראש את האתר בשקופית הבאה */
@@ -332,6 +344,7 @@ function show(n){n=Math.max(0,Math.min(S.length-1,n));const same=n===i;i=n;S.for
 document.getElementById('next').onclick=()=>show(i+1);
 document.getElementById('prev').onclick=()=>show(i-1);
 addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('input,textarea'))return;
+  if(LB.classList.contains('on')){if(e.key==='Escape'){e.preventDefault();lbClose()}return}
   if(['ArrowLeft','PageDown',' '].includes(e.key)){e.preventDefault();show(i+1)}
   else if(['ArrowRight','PageUp'].includes(e.key)){e.preventDefault();show(i-1)}
   else if(e.key==='Home')show(0);else if(e.key==='End')show(S.length-1);
@@ -343,7 +356,16 @@ document.querySelectorAll('.media[data-src]').forEach(m=>{const b=m.dataset.src,
   v.onloadeddata=()=>{m.prepend(v);m.classList.add('has');if(m.closest('.s.on'))v.play().catch(()=>{})};
   v.onerror=()=>tryImg(['.jpg','.png','.webp']);v.src=b+'.mp4';
   function tryImg(ext){if(!ext.length)return;const im=new Image();im.onload=()=>{m.prepend(im);m.classList.add('has')};im.onerror=()=>tryImg(ext.slice(1));im.src=b+ext[0]}});
-document.querySelectorAll('.vc').forEach(c=>c.onclick=()=>{const v=c.querySelector('video');if(v.paused){v.play();c.classList.add('playing')}else{v.pause();c.classList.remove('playing')}});
+function vcToggle(c){const v=c.querySelector('video');if(v.paused){v.play();c.classList.add('playing')}else{v.pause();c.classList.remove('playing')}}
+document.querySelectorAll('#slides .vc').forEach(c=>c.onclick=e=>{if(e.target.closest('.vbig')){lbOpenVideo(c);return}vcToggle(c)});
+const LB=document.getElementById('lb'),LBIN=LB.querySelector('.lbin');
+function lbOpen(html){LBIN.innerHTML=html;LB.classList.add('on');LB.querySelector('.lbx').focus()}
+function lbClose(){LB.querySelectorAll('video').forEach(v=>v.pause());LB.classList.remove('on');LBIN.innerHTML=''}
+function lbOpenVideo(c){const v=c.querySelector('video');v.pause();c.classList.remove('playing');const d=JSON.parse(c.dataset.v);
+  lbOpen(vcircle(d,820));const big=LBIN.querySelector('.vc');big.querySelector('.vbig').remove();big.onclick=()=>vcToggle(big);
+  const bv=big.querySelector('video');bv.currentTime=v.currentTime||0;bv.play().then(()=>big.classList.add('playing')).catch(()=>{})}
+document.querySelectorAll('.grow img,.prow img,.many img').forEach(im=>im.onclick=()=>lbOpen(`<img src="${im.getAttribute('src')}" alt="${im.alt||''}"${im.closest('.rnd')||im.classList.contains('rimg')?' class="round"':''}>`));
+LB.onclick=e=>{if(e.target===LB||e.target.closest('.lbx'))lbClose()};
 document.querySelectorAll('button[data-copy]').forEach(b=>b.onclick=()=>navigator.clipboard.writeText(document.getElementById(b.dataset.copy).textContent).then(()=>{b.textContent='הועתק';setTimeout(()=>b.textContent='העתקה',1500)}));
 {const d=document.getElementById('donutBtn');if(d){if(DONUT)d.href=DONUT;else d.remove()}}
 function fit(){document.getElementById('deck').style.zoom=Math.min(innerWidth/1600,innerHeight/900)}
