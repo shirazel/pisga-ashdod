@@ -67,7 +67,7 @@ a.s .go{position:absolute;top:22px;left:18px;background:var(--orange);color:var(
 /* page = עמוד המפגש. מפגש בלי page מוצג "בקרוב".
    openAt = מתי העמוד נפתח (שעון ישראל). עד אז הכרטיס מוצג "בקרוב" */
 const SESSIONS=[
- {date:'24.11',type:'פרונטלי',title:'מורה יוצר מפתח - בעידן הבינה',desc:'פרומפט טוב, אוטומציות, סקילים, Storybook וחדרי אתגר',page:'lesson-1.html',openAt:'2026-11-24T12:00:00+02:00'}
+ {date:'24.11',type:'פרונטלי',title:'מורה יוצר מפתח - בעידן הבינה',desc:'פרומפט טוב, אוטומציות, סקילים, Storybook וקבוצות אתגר',page:'lesson-1.html',openAt:'2026-11-24T12:00:00+02:00'}
 ];
 const isOpen=s=>s.page&&(!s.openAt||Date.now()>=Date.parse(s.openAt));
 function drawCards(){document.getElementById('grid').innerHTML=SESSIONS.map((s,i)=>{
