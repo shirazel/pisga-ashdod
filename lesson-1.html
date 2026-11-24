@@ -57,6 +57,9 @@ html,body{margin:0;height:100%;overflow:hidden;background:#EEF4F6;font-family:'H
 .bar .ic svg{width:28px;height:28px}
 .bar h2{margin:0;font-size:36px;color:var(--ink);font-weight:700;flex:1}
 .bar a{font-weight:700;font-size:18px;color:var(--deep)}
+.mfs{font:700 18px 'Heebo',sans-serif;color:#fff;background:var(--deep);border:0;border-radius:999px;padding:8px 20px;cursor:pointer}
+#modal .box.big{width:1560px;height:880px;max-height:880px}
+#modal .box.big .content{zoom:1.4}
 .x{width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:#fff;font:400 30px/1 'Heebo';color:var(--deep);cursor:pointer}
 .x:hover{background:var(--soft)}
 .content{flex:1;min-height:0;overflow:auto;padding:26px 44px 30px;font-size:26px;color:var(--ink);line-height:1.5}
@@ -756,7 +759,7 @@ button.wheel{border:0;cursor:pointer;font-family:'Heebo',sans-serif}
 
   <div class="sig">© שירה רוט זליקוביץ · הוראה יצירתית עם AI · <a href="https://wa.me/972523930628" target="_blank" rel="noopener">ווטסאפ</a> · <a href="https://www.lomdot.org/" target="_blank" rel="noopener">להזמנת סדנאות בינה מלאכותית</a></div>
 
-  <div id="modal"><div class="box"><div class="bar"><span class="ic" id="mIc"></span><h2 id="mTitle"></h2><a id="mExt" target="_blank" rel="noopener">פתיחה בחלון חדש</a><button class="x" id="mClose" aria-label="סגירה">×</button></div><div class="content" id="mBody"></div></div></div>
+  <div id="modal"><div class="box"><div class="bar"><span class="ic" id="mIc"></span><h2 id="mTitle"></h2><button type="button" id="mFs" class="mfs" hidden>מסך מלא</button><a id="mExt" target="_blank" rel="noopener">פתיחה בחלון חדש</a><button class="x" id="mClose" aria-label="סגירה">×</button></div><div class="content" id="mBody"></div></div></div>
   <div id="zoom"><button class="zx" aria-label="סגירה">×</button><img alt=""></div>
 <!--DESIGN-END-->
 </div></div>
@@ -812,7 +815,7 @@ const IMG='assets/lesson1/';
 const gal=(items,cls='')=>`<div class="gal ${cls}" style="--n:${items.length}">${items.map(([f,c],i)=>`<figure class="fig">${i?'<span class="arr">&larr;</span>':''}<figcaption class="cap">${c}</figcaption><div class="ph"><img src="${IMG+f}.jpg" alt="" onload="this.parentNode.classList.add('has')" onerror="this.remove()"><em>מקום לתמונה<br><small>${f}.jpg</small></em></div></figure>`).join('')}</div>`;
 const WIN={
  survey:()=>({t:'כמה אנחנו משתמשים בבינה מלאכותית?',u:SURVEY.form,h:`<div class="svtabs"><button class="on" data-sv="q">סריקה</button><button data-sv="r">תוצאות</button></div><div id="svBody"></div>`,after:svInit}),
- intro:()=>({t:'נעים להכיר',h:`<div class="aboutme"><div class="me"><div class="ph"></div><div><div class="eye">מי מעבירה את ההשתלמות</div><b>שירה רוט זליקוביץ</b><span class="role">מומחית בטכנולוגיות בחינוך ובהוראה יצירתית עם AI</span><div class="facts"><span>גרה בחריש</span><span>עובדת במשרד החינוך</span></div><p>אחרי שנים רבות בעולמות התקשורת החזותית, הפרסום והשיווק, עברתי לעולם של טכנולוגיות בלמידה.</p><p>ואני פשוט עפה על AI, ועל הדרך שבה הוא מאפשר לנו ליצור דברים שפעם נראו בלתי אפשריים.</p></div></div>
+ intro:()=>({t:'נעים להכיר',fs:true,h:`<div class="aboutme"><div class="me"><div class="ph"></div><div><div class="eye">מי מעבירה את ההשתלמות</div><b>שירה רוט זליקוביץ</b><span class="role">מומחית בטכנולוגיות בחינוך ובהוראה יצירתית עם AI</span><div class="facts"><span>גרה בחריש</span><span>עובדת במשרד החינוך</span></div><p>אחרי שנים רבות בעולמות התקשורת החזותית, הפרסום והשיווק, עברתי לעולם של טכנולוגיות בלמידה.</p><p>ואני פשוט עפה על AI, ועל הדרך שבה הוא מאפשר לנו ליצור דברים שפעם נראו בלתי אפשריים.</p></div></div>
   <div class="you"><h3>ועכשיו אתם</h3><ol><li>השם שלי</li><li>בית הספר שלי</li><li>מה אני מלמד/ת</li></ol></div></div>`}),
  prompt:()=>({t:'איך כותבים פרומפט טוב',h:`
   <div class="formula"><span>מי אתה</span><i>+</i><span>מה לעשות</span><i>+</i><span>למי</span><i>+</i><span>איך זה ייראה</span><i>+</i><span>מה לא</span></div>
@@ -1160,17 +1163,24 @@ function loadSheetFrom(id,gid){return new Promise((ok,fail)=>{const cb='cb'+Date
   sc.onerror=fail;sc.src=`https://docs.google.com/spreadsheets/d/${id}/gviz/tq?gid=${gid}&headers=1&tqx=out:json;responseHandler:${cb}&t=${Date.now()}`;document.body.appendChild(sc);})}
 
 /* ===== מנגנון החלון ===== */
+/* מסך מלא: הדף כולו עובר למסך מלא, והחלון גדל כמעט לכל הבמה */
+function fsOff(){const b=document.querySelector('#modal .box');if(b&&b.classList.contains('big')){b.classList.remove('big');if(document.fullscreenElement)document.exitFullscreen().catch(()=>{})}const f=document.getElementById('mFs');if(f)f.textContent='מסך מלא'}
+function fsToggle(){const b=document.querySelector('#modal .box'),f=document.getElementById('mFs');
+  if(b.classList.contains('big')){fsOff();return}
+  b.classList.add('big');f.textContent='יציאה ממסך מלא';const r=document.documentElement.requestFullscreen;if(r&&!document.fullscreenElement)r.call(document.documentElement).catch(()=>{})}
+document.addEventListener('click',e=>{if(e.target.closest('#mFs'))fsToggle()});
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement){const b=document.querySelector('#modal .box.big');if(b){b.classList.remove('big');document.getElementById('mFs').textContent='מסך מלא'}}});
 const $m=()=>document.getElementById('modal'),$b=()=>document.getElementById('mBody'),$e=()=>document.getElementById('mExt');
 function openWin(k,src){const modal=$m(),body=$b(),ext=$e();
   const w=WIN[k](src);document.getElementById('mTitle').textContent=w.t;
   const ic=src&&src.querySelector('.art svg,.ic svg');document.getElementById('mIc').innerHTML=ic?ic.outerHTML:'';document.getElementById('mIc').style.display=ic?'':'none';
   body.className='content'+(w.f?' frame':'');body.innerHTML=w.h;
-  if(w.u){ext.href=w.u;ext.style.display=''}else ext.style.display='none';
+  if(w.u){ext.href=w.u;ext.style.display=''}else ext.style.display='none';document.getElementById('mFs').hidden=!w.fs;
   if(TECH.includes(k))ideasUI();else removeIdeasUI();
   modal.classList.add('on'); if(w.after) w.after();
   body.querySelectorAll('.copy').forEach(b=>b.onclick=()=>navigator.clipboard.writeText(b.parentNode.querySelector('span').textContent).then(()=>{b.textContent='הועתק';setTimeout(()=>b.textContent='העתקה',1500)}));
 }
-function closeWin(){clearInterval(window._sv);clearInterval(padTimer);clearInterval(SHOW.auto);SHOW.auto=null;if(document.fullscreenElement&&document.querySelector('.pad'))document.exitFullscreen().catch(()=>{});clearInterval(window._wl);removeIdeasUI();clearInterval(window._tm);tmRun=false;const modal=$m(),body=$b();modal.classList.remove('on');body.innerHTML=''}
+function closeWin(){fsOff();clearInterval(window._sv);clearInterval(padTimer);clearInterval(SHOW.auto);SHOW.auto=null;if(document.fullscreenElement&&document.querySelector('.pad'))document.exitFullscreen().catch(()=>{});clearInterval(window._wl);removeIdeasUI();clearInterval(window._tm);tmRun=false;const modal=$m(),body=$b();modal.classList.remove('on');body.innerHTML=''}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-open]');if(b)openWin(b.dataset.open,b)});
 document.addEventListener('keydown',e=>{const b=e.target.closest&&e.target.closest('[data-open]');if(b&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openWin(b.dataset.open,b)}});
 document.addEventListener('click',e=>{if(e.target.closest('#mClose'))closeWin()});
