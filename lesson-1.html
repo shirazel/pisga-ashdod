@@ -714,6 +714,9 @@ button.wheel{border:0;cursor:pointer;font-family:'Heebo',sans-serif}
 .atabs{display:flex;gap:10px;margin-bottom:16px}
 .atabs button{border:2px solid #DCEFFB;background:#fff;border-radius:999px;padding:6px 22px;font:700 21px 'Heebo',sans-serif;color:#1E5D96;cursor:pointer}
 .atabs button.on{background:#2B78C5;border-color:#2B78C5;color:#fff}
+.skwhat{background:#F6FAFD;border-right:8px solid #7A5BD6;border-radius:18px;padding:18px 26px;margin-bottom:18px}
+.skwhat b{display:block;font-size:30px;color:#4B2FA8;margin-bottom:6px}
+.skwhat p{margin:0;font-size:25px;line-height:1.55}
 .pbad{background:#F3F5F7;flex:0 0 300px !important}
 .pbad p{color:var(--muted);text-decoration:line-through;text-decoration-color:#E2448F}
 .pgood{background:#FFFBEA;border:2px solid var(--yellow)}
@@ -818,6 +821,7 @@ const idea=()=>`<div class="try idea"><span class="lbl">הקיר המשותף</s
 const frame=u=>`<iframe src="${u}" allowfullscreen allow="fullscreen; clipboard-write"></iframe>`;
 /* תמונות לדוגמה: שמים קובץ בתיקייה assets/lesson2 בשם שמופיע כאן, והוא מופיע בחלון */
 const IMG='assets/lesson1/';
+const SKILL_PROMPT='הפרומפט יופיע כאן'; // הפרומפט לדוגמה בחלון הסקילים
 /* לשוניות בחלון האוטומציות */
 function atabsInit(){const b=document.getElementById('mBody');b.querySelectorAll('.atabs button').forEach(x=>x.onclick=()=>{b.querySelectorAll('.atabs button').forEach(y=>y.classList.toggle('on',y===x));b.querySelectorAll('.atp').forEach(t=>t.hidden=t.dataset.at!==x.dataset.at)})}
 const gal=(items,cls='')=>`<div class="gal ${cls}" style="--n:${items.length}">${items.map(([f,c],i)=>`<figure class="fig">${i?'<span class="arr">&larr;</span>':''}<figcaption class="cap">${c}</figcaption><div class="ph"><img src="${IMG+f}.jpg" alt="" onload="this.parentNode.classList.add('has')" onerror="this.remove()"><em>מקום לתמונה<br><small>${f}.jpg</small></em></div></figure>`).join('')}</div>`;
@@ -839,7 +843,9 @@ const WIN={
   ${gal([['drive-1','לוחצים + ובוחרים Drive'],['drive-2','או כותבים @Google Drive'],['drive-3','הבינה עונה מתוך הקובץ שלכם']])}
   ${ex('פרומפט לדוגמה','@Google Drive מצא את המבחן האחרון שלי, והכן ממנו דף חזרה עם 10 שאלות בשלוש רמות קושי.')}</div>`}),
  skills:()=>({t:'סקילים',h:`
-  ${gal([['skills-1','סקיל = הוראות וקבצים ש-Claude טוען לבד, כשצריך'],['skills-2','מלמדים אותו פעם אחת: מערך שיעור בתבנית של בית הספר'],['skills-3','"תכין מערך על שברים", והוא כבר יודע את הפורמט']])}
+  <div class="skwhat"><b>מה זה סקיל?</b><p>סקיל הוא "מדריך עבודה" שמלמדים את Claude פעם אחת. כותבים בו איך אתם עושים משהו, ומצרפים דוגמאות. מאותו רגע Claude שומר אותו, ומפעיל אותו לבד בכל פעם שזה רלוונטי, בלי שתצטרכו להסביר שוב.</p></div>
+  <div class="formula"><span>הוראות</span><i>+</i><span>דוגמאות וקבצים</span><i>+</i><span>מתי להפעיל</span><i>=</i><span>סקיל</span></div>
+  ${ex('פרומפט לדוגמה',SKILL_PROMPT)}
   ${tryIt('ב-Claude נכנסים להגדרות ← יכולות ← סקילים, ובוחרים סקיל מוכן או יוצרים חדש.','https://claude.ai','לפתיחת Claude')}`}),
  story:()=>({t:'Storybook',h:`<div class="cols2"><div><p class="slead">Gemini יוצר ספר סיפור מאויר של 10 עמודים, עם הקראה בקול.</p><ol class="steps"><li><div>נכנסים ל-<b>Gemini</b>.</div></li><li><div>בוחרים <b>Storybook</b> בכלים.</div></li><li><div>כותבים על מה הסיפור, ולאיזה גיל.</div></li><li><div>מקבלים ספר עם איורים, ולוחצים על <b>הקראה</b>.</div></li></ol></div><div>${ex('דוגמה','כתוב ספר קצר לכיתה ב׳ על ילד שלומד לבקש סליחה. משפט אחד או שניים בכל עמוד.')}</div></div><div class="books">${STORIES.map(b=>`<a class="book" href="${b.u}" target="_blank" rel="noopener"><span class="cover" style="background:${b.c}"><span class="spine"></span><svg viewBox="0 0 24 24">${b.i}</svg></span><span class="bt2">${b.t}</span></a>`).join('')}</div>`}),
  room:(el)=>{const i=+el.dataset.r,r=ROOMS[i];return {t:'חדר '+(i+1)+' · '+r.t,u:r.doc,h:roomHTML(i)}},
