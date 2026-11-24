@@ -136,6 +136,14 @@ p{margin:0}
 #lb img.round{border-radius:50%;max-height:820px}
 #lb .vc{cursor:pointer}
 .lbx{position:absolute;top:30px;left:40px;width:56px;height:56px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.08);color:#fff;font-size:34px;cursor:pointer;z-index:2}
+/* ===== פעם והיום ===== */
+.then{align-items:center;justify-content:center;gap:70px}
+.then figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:26px;width:520px}
+.then .rimg{width:420px;cursor:zoom-in}
+.then figure:not(.now) .rimg{filter:grayscale(.6) brightness(.85);box-shadow:0 0 0 3px rgba(142,152,194,.5)}
+.then figcaption{text-align:center;font-size:28px;line-height:1.5;color:var(--muted)}
+.then figcaption b{display:block;font:900 72px/1.1 'Space Grotesk','Rubik';color:var(--txt);margin-bottom:8px}
+.then .now figcaption b{background:linear-gradient(100deg,#fff,var(--cyan) 50%,var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
 /* ===== משפט ===== */
 .statement{align-items:center;justify-content:center;text-align:center;flex-direction:column;gap:10px}
 .statement h2{font-size:150px}
@@ -248,6 +256,7 @@ const SLIDES=[
    {t:'אחר כך',h:'טכנולוגיות בלמידה',p:'משרד החינוך, הדרכות וסדנאות למורים.',c:'#8B5CF6'},
    {t:'היום',h:'בונה כלים עם בינה',p:'אתרים, משחקים ואוטומציות שחוסכים לי שעות.',c:'#22D3EE',now:1}]},
  {k:'live',chip:'האקתון',h:'התלמידים שלנו כבר עפו קדימה',url:STUDENTS,show:'campus-hamad.github.io/botpoint',p:'בהאקתון, תלמידים בנו את Bot Points: כיתה בשיחת וידאו, שבה בוט מקשיב, בודק תשובות ונותן נקודות.',li:['המורה פותח כיתה ומקבל קוד','התלמידים נכנסים עם הקוד','הבוט מקשיב ומחלק נקודות']},
+ {k:'then',a:{t:'פעם...',i:'assets/deck/ex/past.png',p:'בשביל לכתוב פקודות למחשב, היה צריך ללמוד מחשבים ולכתוב נוסחאות מסובכות'},b:{t:'היום',i:'assets/deck/ex/today.png',p:'אפשר לדבר עם המחשב כאילו הוא חבר, והמחשב מבין ומבצע את הפקודות'}},
  {k:'statement',a:'לא צריך לדעת לתכנת.',b:'צריך לדעת להסביר.'},
  {k:'tools',h:'כלים שבניתי לעצמי',lead:'כל משימה שחוזרת על עצמה, ביקשתי מהבינה להפוך לכלי.',items:[
    {h:'בודק מטלות',p:'עובר על העבודות לפי מחוון, ומכין לי משוב לכל תלמיד.',i:'<path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/>'},
@@ -292,6 +301,7 @@ const R={
  pair:d=>`<section class="s pair"><div class="ghead"><span class="chip">${d.chip}</span><h2>${d.h}</h2></div><div class="prow">
    <figure>${d.a.many?`<div class="many">${d.a.many.map(x=>`<img src="${x}" alt="">`).join('')}</div>`:`<img class="rimg" src="${d.a.i}" alt="">`}<figcaption>${d.a.c}</figcaption></figure>
    <span class="parr">&larr;</span><figure>${vcircle(d.b.v,440)}<figcaption>${d.b.c}</figcaption></figure></div></section>`,
+ then:d=>`<section class="s then">${[d.a,d.b].map((x,k)=>`${k?'<span class="parr">&larr;</span>':''}<figure class="${k?'now':''}"><img class="rimg" src="${x.i}" alt=""><figcaption><b>${x.t}</b>${x.p}</figcaption></figure>`).join('')}</section>`,
  statement:d=>`<section class="s statement"><h2>${d.a}</h2><h2 class="grad">${d.b}</h2></section>`,
  live:d=>`<section class="s live"><div class="txt"><span class="chip">${d.chip||'דוגמה אמיתית'}</span><h2>${d.h}</h2><p>${d.p}</p><ul>${d.li.map(x=>`<li>${x}</li>`).join('')}</ul><a class="btn" href="${d.url}" target="_blank" rel="noopener">לפתיחה בחלון חדש</a></div>
    <div class="browser"><div class="bb"><i></i><i></i><i></i><span class="url">${d.show}</span></div><div class="vw"><iframe data-src="${d.url}" title="${esc(d.h)}" loading="lazy"></iframe></div></div></section>`,
@@ -355,7 +365,7 @@ function lbClose(){LB.querySelectorAll('video').forEach(v=>v.pause());LB.classLi
 function lbOpenVideo(c){const v=c.querySelector('video');v.pause();c.classList.remove('playing');const d=JSON.parse(c.dataset.v);
   lbOpen(vcircle(d,820));const big=LBIN.querySelector('.vc');big.querySelector('.vbig').remove();big.onclick=()=>vcToggle(big);
   const bv=big.querySelector('video');bv.currentTime=v.currentTime||0;bv.play().then(()=>big.classList.add('playing')).catch(()=>{})}
-document.querySelectorAll('.grow img,.prow img,.many img').forEach(im=>im.onclick=()=>lbOpen(`<img src="${im.getAttribute('src')}" alt="${im.alt||''}"${im.closest('.rnd')||im.classList.contains('rimg')?' class="round"':''}>`));
+document.querySelectorAll('.grow img,.prow img,.many img,.then img').forEach(im=>im.onclick=()=>lbOpen(`<img src="${im.getAttribute('src')}" alt="${im.alt||''}"${im.closest('.rnd')||im.classList.contains('rimg')?' class="round"':''}>`));
 LB.onclick=e=>{if(e.target===LB||e.target.closest('.lbx'))lbClose()};
 document.querySelectorAll('button[data-copy]').forEach(b=>b.onclick=()=>navigator.clipboard.writeText(document.getElementById(b.dataset.copy).textContent).then(()=>{b.textContent='הועתק';setTimeout(()=>b.textContent='העתקה',1500)}));
 {const d=document.getElementById('donutBtn');if(d){if(DONUT)d.href=DONUT;else d.remove()}}
