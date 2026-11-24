@@ -101,6 +101,30 @@ p{margin:0}
 .canva{padding:0}
 .canva .media{flex:1;height:auto;border:0;border-radius:0;box-shadow:none;background:#000}
 .canva .media img,.canva .media video{object-fit:contain}
+/* ===== גלריה, סרטון בעיגול, לפני ואחרי ===== */
+.gal,.pair{flex-direction:column}
+.ghead{display:flex;flex-direction:column;gap:18px;margin-bottom:34px}
+.ghead h2{font-size:96px}
+.grow{flex:1;display:grid;grid-template-columns:repeat(var(--n),1fr);gap:40px;align-items:center;justify-items:center;min-height:0}
+.grow figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:18px;max-width:100%}
+.grow figcaption,.prow figcaption{font:500 24px/1.45 'JetBrains Mono','Rubik';color:var(--muted);text-align:center;max-width:22ch}
+.grow .sq img{max-height:470px;max-width:100%;border-radius:18px;border:1px solid var(--line);box-shadow:0 24px 70px rgba(139,92,246,.28)}
+.grow .rnd img,.rimg{width:min(420px,100%);aspect-ratio:1;border-radius:50%;box-shadow:0 0 0 3px rgba(34,211,238,.6),0 0 50px rgba(139,92,246,.55)}
+.wide .grow .sq img{max-height:520px}
+.wide figcaption{max-width:none}
+.vc{position:relative;border-radius:50%;overflow:hidden;flex:0 0 auto;box-shadow:0 0 0 3px rgba(34,211,238,.6),0 0 60px rgba(139,92,246,.6);background:#000;cursor:pointer}
+.vc video{position:absolute;max-width:none}
+.vplay{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);width:56px;height:56px;border-radius:50%;border:0;background:rgba(7,11,31,.7);color:#fff;font-size:22px;cursor:pointer;transition:opacity .2s}
+.vc.playing .vplay{opacity:0}
+.vc:hover .vplay{opacity:1}
+.vid.on{display:grid;grid-template-columns:1fr auto;gap:70px;align-items:center}
+.vid .txt{display:flex;flex-direction:column;gap:24px}
+.vid h2{font-size:110px}
+.prow{flex:1;display:flex;align-items:center;justify-content:center;gap:60px}
+.prow figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:20px}
+.prow .rimg{width:440px}
+.many{display:flex;gap:16px}.many img{height:300px;border-radius:14px;border:1px solid var(--line)}
+.parr{font-size:70px;color:var(--cyan);text-shadow:0 0 20px var(--cyan)}
 /* ===== משפט ===== */
 .statement{align-items:center;justify-content:center;text-align:center;flex-direction:column;gap:10px}
 .statement h2{font-size:150px}
@@ -203,17 +227,15 @@ p{margin:0}
    כל שקופית היא נושא אחד. media = קובץ בתיקייה assets/deck (jpg, png או mp4).
    live = אתר אמיתי שמוצג בתוך חלון דפדפן, ואפשר ללחוץ בתוכו */
 const DONUT=''; // קישור למחולל הסופגניות
-const STUDENTS=''; // הקישור לכלי הזום שהתלמידים בנו בהאקתון
+const STUDENTS='https://campus-hamad.github.io/botpoint/'; // הכלי שהתלמידים בנו בהאקתון
 const SLIDES=[
  {k:'hero',prompt:'בנה לי אתר להשתלמות "הכלים שלא הכרתם" למורים בפסגה אשדוד, עם סקר, חדרי אתגר ופדלט',steps:['קורא את הבקשה...','בונה עמוד בית ועמוד מפגש...','מחבר סקר עם תוצאות חיות...'],title:'ממורה למפתח',sub:'שירה רוט זליקוביץ'},
- {k:'kids',h:'התלמידים שלנו כבר עפו קדימה',p:'בהאקתון, תלמידים בנו כלי לזום. בואו נראה.',url:STUDENTS},
- {k:'canva',src:'p3'},
- {k:'canva',src:'p2'},
+ {k:'live',chip:'האקתון',h:'התלמידים שלנו כבר עפו קדימה',url:STUDENTS,show:'campus-hamad.github.io/botpoint',p:'בהאקתון, תלמידים בנו את Bot Points: כיתה בשיחת וידאו, שבה בוט מקשיב, בודק תשובות ונותן נקודות.',li:['המורה פותח כיתה ומקבל קוד','התלמידים נכנסים עם הקוד','הבוט מקשיב ומחלק נקודות']},
+ {k:'vid',chip:'אני, בגרסה המונפשת',h:'הדמות שלי מדברת',p:'תמונה אחת שלי, קצת קול, והבינה הפכה אותה לדמות שמדברת.',v:{src:'assets/deck/canva/p2.mp4',cx:639,cy:365,r:358}},
  {k:'story',name:'שירה רוט זליקוביץ',role:'מומחית בטכנולוגיות בחינוך ובהוראה יצירתית עם AI',nodes:[
    {t:'פעם',h:'תקשורת חזותית, פרסום ושיווק',p:'שנים של עיצוב, רעיונות ומסרים.'},
    {t:'אחר כך',h:'טכנולוגיות בלמידה',p:'משרד החינוך, הדרכות וסדנאות למורים.',c:'#8B5CF6'},
    {t:'היום',h:'בונה כלים עם בינה',p:'אתרים, משחקים ואוטומציות שחוסכים לי שעות.',c:'#22D3EE',now:1}]},
- {k:'canva',src:'p22'},
  {k:'statement',a:'לא צריך לדעת לתכנת.',b:'צריך לדעת להסביר.'},
  {k:'tools',h:'כלים שבניתי לעצמי',lead:'כל משימה שחוזרת על עצמה, ביקשתי מהבינה להפוך לכלי.',items:[
    {h:'בודק מטלות',p:'עובר על העבודות לפי מחוון, ומכין לי משוב לכל תלמיד.',i:'<path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/>'},
@@ -223,10 +245,7 @@ const SLIDES=[
    {h:'פיצול סקר',p:'סקר אחד גדול נחתך לקובץ נפרד לכל השתלמות.',i:'<path d="M6 3v12M18 9v12M6 15a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM18 3a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM6 15c0-4 12-2 12-6"/>'},
    {h:'שכפול חדרי זום',p:'פותח חדרים לפגישה הבאה בלחיצה אחת.',i:'<rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/>'}]},
  {k:'sec',n:'//',h:'טעימה ממה<br>שמחכה לכם',lead:'כל מה שתראו עכשיו, תעשו בעצמכם עוד הערב.'},
- {k:'canva',src:'p4'},
- {k:'canva',src:'p14'},
- {k:'canva',src:'p15'},
- {k:'canva',src:'p17'},
+ {k:'gal',chip:'מכתיבים, ומקבלים',h:'מה שתבקשו',items:[{i:'assets/deck/ex/fruit.png',round:1,c:'צור צלחת של פירות חתוכים מסודרים בצורה של AI'},{i:'assets/deck/ex/chair.png',round:1,c:'צור כורסה עשויה מתות אחד'},{i:'assets/deck/ex/grapes.png',round:1,c:'צור פרצוף עשוי מענבים'}]},
  {k:'topic',chip:'פרומפט טוב',h:'אותה בקשה,<br>תוצאה אחרת',media:'p-prompt',cap:'לפני ואחרי: אותה בקשה בשני ניסוחים',was:'"תכין לי דף עבודה על שברים"',now:'דף מוכן לכיתה, מהקל לקשה, עם שאלה מהחיים'},
  {k:'topic',chip:'Gemini',h:'משימות מתוזמנות',media:'t-sched',cap:'משימה מתוזמנת ב-Gemini',was:'לחפש כל שבוע פתיח לשיעור',now:'הוא מחכה לכם ביום ראשון ב-7:00'},
  {k:'topic',chip:'Google Drive',h:'הבינה קוראת<br>את הקבצים שלכם',media:'t-drive',cap:'@Google Drive ב-Gemini',was:'להעתיק ולהדביק מסמכים לצ\'אט',now:'"קח את המבחן שלי והכן ממנו דף חזרה"'},
@@ -235,19 +254,13 @@ const SLIDES=[
    {t:'יובל גיבור השיעורים',u:'https://gemini.google.com/share/ec79a4050854',a:'#FBBF24',b:'#F97316',e:'<path d="M7 8a5 5 0 0 1 10 0v12H7z"/><path d="M9 8V6a3 3 0 0 1 6 0v2M7 13h10M10 16h4"/>'},
    {t:'המסע הגדול של ניצנה הטיפה',u:'https://gemini.google.com/share/9bf1ab0d73ea',a:'#22D3EE',b:'#3B82F6',e:'<path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/><path d="M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5"/>'},
    {t:'הילה והשעון המקפץ בזמן',u:'https://gemini.google.com/share/e861d28d007f',a:'#F472B6',b:'#8B5CF6',e:'<circle cx="12" cy="13" r="7"/><path d="M12 13V9.5M12 13l2.5 1.5M10 3h4M12 3v3"/>'}]},
- {k:'canva',src:'p25'},
- {k:'canva',src:'p26'},
- {k:'canva',src:'p27'},
- {k:'canva',src:'p24'},
- {k:'canva',src:'p28'},
- {k:'canva',src:'p29'},
- {k:'canva',src:'p30'},
- {k:'canva',src:'p31'},
- {k:'canva',src:'p21'},
+ {k:'gal',chip:'Gemini',h:'צור קומיקס',wide:1,items:[{i:'assets/deck/ex/comic.jpg',c:'קומיקס בעברית, עם אותן דמויות בכל ריבוע'}]},
+ {k:'pair',chip:'הנפשה',h:'תמונה ישנה מתעוררת',a:{i:'assets/deck/ex/old-photo.png',c:'לפני'},b:{v:{src:'assets/deck/canva/p29.mp4',cx:661,cy:379,r:325},c:'אחרי'}},
+ {k:'pair',chip:'הנפשה',h:'שלוש תמונות, סרטון אחד',a:{many:['assets/deck/ex/merge-1.jpg','assets/deck/ex/merge-2.jpg','assets/deck/ex/merge-3.jpg'],c:'אישה, כורסה ושתייה'},b:{v:{src:'assets/deck/canva/p31.mp4',cx:661,cy:379,r:325},c:'סרטון אחד'}},
+ {k:'gal',chip:'קוד',h:'משחקים מפרומפט אחד',items:[{i:'assets/deck/ex/memory.jpg',c:'משחק הזיכרון'},{i:'assets/deck/ex/xo.jpg',c:'איקס עיגול'}]},
  {k:'topic',chip:'Claude',h:'משחק בדקה',media:'d-claude',cap:'משחק הזיכרון ב-Claude',what:'בואו ננסה עכשיו, בשידור חי.',prompt:'בנה משחק זיכרון בעברית לכיתה ב׳, עם 8 זוגות של מילה ואימוג\'י בנושא פירות. כרטיסים גדולים וצבעוניים, צליל קטן כשמוצאים זוג, וכפתור "משחק חדש".'},
  {k:'topic',chip:'בקבוצות',h:'חדרי אתגר',media:'r-rooms',cap:'קבוצות עובדות בחדרים',what:'תופסים את הבינה בטעות, משכנעים אותה בקול, מתווכחים איתה ומנצחים. בסוף מקרינים.'},
- {k:'canva',src:'p18'},
- {k:'canva',src:'p19'},
+ {k:'gal',chip:'חנוכה',h:'סופגניות של בינה',items:[{i:'assets/deck/ex/cola-donut.png',round:1,c:'סופגניית קוקה קולה'},{i:'assets/deck/ex/hero-donut.png',round:1,c:'הסופגנייה הגיבורה'}]},
  {k:'topic',chip:'חנוכה',h:'מחולל הסופגניות',media:'w-donut',cap:'מחולל הסופגניות',what:'וקינוח, כי עוד מעט חנוכה.',link:'donut'},
  {k:'models',h:'שלושה מודלים, תכונה אחת לכל אחד',items:[
    {nm:'Gemini',c:'#60A5FA',best:'מחובר לגוגל',h:'עובד עם הדרייב, הג\'ימייל והיומן שלכם',p:'וגם Storybook, למידה מודרכת ומשימות מתוזמנות.'},
@@ -257,6 +270,8 @@ const SLIDES=[
 ];
 
 /* ============ בונים את השקופיות ============ */
+/* סרטון בתוך עיגול: מציגים רק את העיגול מתוך הסרטון (cx, cy, r בפיקסלים של סרטון ברוחב 1280) */
+function vcircle(v,D){const k=D/(2*v.r);return `<div class="vc" style="width:${D}px;height:${D}px"><video src="${v.src}" playsinline preload="metadata" style="width:${1280*k}px;left:${-(v.cx-v.r)*k}px;top:${-(v.cy-v.r)*k}px"></video><button class="vplay" type="button" aria-label="הפעלה">&#9654;</button></div>`}
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 let pid=0;
 const prBox=t=>{const id='p'+(++pid);return `<div class="pr"><small>// פרומפט</small><span id="${id}">${esc(t)}</span><br><button class="btn" type="button" data-copy="${id}">העתקה</button></div>`};
@@ -268,8 +283,14 @@ const R={
  kids:d=>`<section class="s kids"><span class="chip">האקתון</span><h2 class="grad">${d.h}</h2><p class="lead">${d.p}</p>
    ${d.url?`<a class="btn big" href="${d.url}" target="_blank" rel="noopener">לפתיחת הכלי שהתלמידים בנו</a>`:'<span class="btn big off">הקישור יופיע כאן</span>'}</section>`,
  canva:d=>`<section class="s canva"><div class="media" data-src="assets/deck/canva/${d.src}" data-cap="עמוד מהקנבה"></div></section>`,
+ gal:d=>`<section class="s gal${d.wide?' wide':''}"><div class="ghead"><span class="chip">${d.chip}</span><h2>${d.h}</h2></div>
+   <div class="grow" style="--n:${d.items.length}">${d.items.map(t=>`<figure class="${t.round?'rnd':'sq'}"><img src="${t.i}" alt="${esc(t.c||'')}">${t.c?`<figcaption>${t.c}</figcaption>`:''}</figure>`).join('')}</div></section>`,
+ vid:d=>`<section class="s vid"><div class="txt"><span class="chip">${d.chip}</span><h2>${d.h}</h2><p class="lead">${d.p}</p></div>${vcircle(d.v,560)}</section>`,
+ pair:d=>`<section class="s pair"><div class="ghead"><span class="chip">${d.chip}</span><h2>${d.h}</h2></div><div class="prow">
+   <figure>${d.a.many?`<div class="many">${d.a.many.map(x=>`<img src="${x}" alt="">`).join('')}</div>`:`<img class="rimg" src="${d.a.i}" alt="">`}<figcaption>${d.a.c}</figcaption></figure>
+   <span class="parr">&larr;</span><figure>${vcircle(d.b.v,440)}<figcaption>${d.b.c}</figcaption></figure></div></section>`,
  statement:d=>`<section class="s statement"><h2>${d.a}</h2><h2 class="grad">${d.b}</h2></section>`,
- live:d=>`<section class="s live"><div class="txt"><span class="chip">דוגמה אמיתית</span><h2>${d.h}</h2><p>${d.p}</p><ul>${d.li.map(x=>`<li>${x}</li>`).join('')}</ul><a class="btn" href="${d.url}" target="_blank" rel="noopener">לפתיחה בחלון חדש</a></div>
+ live:d=>`<section class="s live"><div class="txt"><span class="chip">${d.chip||'דוגמה אמיתית'}</span><h2>${d.h}</h2><p>${d.p}</p><ul>${d.li.map(x=>`<li>${x}</li>`).join('')}</ul><a class="btn" href="${d.url}" target="_blank" rel="noopener">לפתיחה בחלון חדש</a></div>
    <div class="browser"><div class="bb"><i></i><i></i><i></i><span class="url">${d.show}</span></div><div class="vw"><iframe data-src="${d.url}" title="${esc(d.h)}" loading="lazy"></iframe></div></div></section>`,
  tools:d=>`<section class="s tools"><h2>${d.h}</h2><p class="lead">${d.lead}</p><div class="tgrid">${d.items.map(t=>`<div class="tcard glass"><span class="ic"><svg viewBox="0 0 24 24">${t.i}</svg></span><h3>${t.h}</h3><p>${t.p}</p></div>`).join('')}</div></section>`,
  sec:d=>`<section class="s sec"><div class="num">// ${d.n}</div><h2 class="grad">${d.h}</h2>${d.lead?`<p class="lead">${d.lead}</p>`:''}</section>`,
@@ -304,6 +325,8 @@ function show(n){n=Math.max(0,Math.min(S.length-1,n));const same=n===i;i=n;S.for
   /* טוענים מראש את האתר בשקופית הבאה */
   if(S[i+1])S[i+1].querySelectorAll('iframe[data-src]').forEach(f=>{if(!f.src)f.src=f.dataset.src});
   S.forEach((s,k)=>s.querySelectorAll('video').forEach(v=>{if(k===i){v.currentTime=0;v.play().catch(()=>{})}else v.pause()}));
+  document.querySelectorAll('.vc video').forEach(v=>{if(!v.closest('.s.on')){v.pause();v.closest('.vc').classList.remove('playing')}});
+  S[i].querySelectorAll('.vc video').forEach(v=>{v.currentTime=0;v.play().then(()=>v.closest('.vc').classList.add('playing')).catch(()=>{})});
   if(i===0&&!same)heroRun();
   try{history.replaceState(null,'','#'+(i+1))}catch(e){}}
 document.getElementById('next').onclick=()=>show(i+1);
@@ -320,6 +343,7 @@ document.querySelectorAll('.media[data-src]').forEach(m=>{const b=m.dataset.src,
   v.onloadeddata=()=>{m.prepend(v);m.classList.add('has');if(m.closest('.s.on'))v.play().catch(()=>{})};
   v.onerror=()=>tryImg(['.jpg','.png','.webp']);v.src=b+'.mp4';
   function tryImg(ext){if(!ext.length)return;const im=new Image();im.onload=()=>{m.prepend(im);m.classList.add('has')};im.onerror=()=>tryImg(ext.slice(1));im.src=b+ext[0]}});
+document.querySelectorAll('.vc').forEach(c=>c.onclick=()=>{const v=c.querySelector('video');if(v.paused){v.play();c.classList.add('playing')}else{v.pause();c.classList.remove('playing')}});
 document.querySelectorAll('button[data-copy]').forEach(b=>b.onclick=()=>navigator.clipboard.writeText(document.getElementById(b.dataset.copy).textContent).then(()=>{b.textContent='הועתק';setTimeout(()=>b.textContent='העתקה',1500)}));
 {const d=document.getElementById('donutBtn');if(d){if(DONUT)d.href=DONUT;else d.remove()}}
 function fit(){document.getElementById('deck').style.zoom=Math.min(innerWidth/1600,innerHeight/900)}
