@@ -25,17 +25,17 @@ h1{margin:12px 0 0;font-size:46px;font-weight:700;color:var(--deep);text-align:c
 .sub{margin:8px 0 0;font-size:23px;color:var(--muted);text-align:center}
 
 /* המפגשים: לוח כחול עם כרטיסים לבנים, כמו במסך השיעור */
-.grid{flex:0 0 auto;height:500px;width:92%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:14px;margin:20px 0 12px;background:var(--panel);border-radius:22px;padding:20px}
+.grid{flex:0 0 auto;height:500px;width:94%;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:14px;margin:20px 0 12px;background:var(--panel);border-radius:22px;padding:20px}
 .s{background:#fff;border-radius:16px;padding:14px 18px;min-height:0;overflow:hidden;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--ink);position:relative;transition:.25s}
 .s .top{display:flex;align-items:center;gap:12px}
 .s .n{width:46px;height:46px;border-radius:50%;background:var(--pink);color:#fff;font-size:25px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
 .s .d{font-size:23px;font-weight:700;color:var(--blue)}
-.s h2{margin:0;font-size:23px;font-weight:700;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s h2{margin:0;font-size:22px;font-weight:700;line-height:1.2}
 .s .desc{margin:0;font-size:16.5px;line-height:1.35;color:var(--muted)}
 .s .t{margin-top:auto;align-self:flex-start;font-size:16px;font-weight:700;color:var(--deep);background:#EAF4FB;border-radius:999px;padding:3px 12px}
 .s .t.task{background:#FFF4CF;color:#6B5A00}
 a.s:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(0,0,0,.2)}
-a.s .go{position:absolute;top:22px;left:18px;background:var(--orange);color:var(--ink);font-weight:700;font-size:18px;border-radius:999px;padding:6px 20px}
+a.s .go{position:absolute;bottom:12px;left:14px;background:var(--orange);color:var(--ink);font-weight:700;font-size:18px;border-radius:999px;padding:6px 20px}
 .s.soon{background:#E6F0F9}
 .s.soon .n{background:#9DB6CB}
 .s.soon h2{color:#4C5C68}
@@ -48,16 +48,15 @@ a.s .go{position:absolute;top:22px;left:18px;background:var(--orange);color:var(
 
 .sig{position:absolute;bottom:18px;left:0;right:0;text-align:center;font-size:14px;color:var(--muted);z-index:2}
 .sig a{color:inherit}
-.grid{grid-template-columns:minmax(0,560px);grid-template-rows:1fr;justify-content:center;height:380px;width:auto;padding:24px 60px}
 </style>
 </head>
 <body>
 <div id="vp"><div id="stage">
   <div class="sheet">
     <img class="logo" src="assets/lomdot-logo-no-tagline.png" alt="לומדות">
-    <div class="eyebrow"><span>מפגש למורים</span><span>פסגה אשדוד</span><span>תשפ"ז</span></div>
+    <div class="eyebrow"><span>השתלמות למורים</span><span>פסגה אשדוד</span><span>תשפ"ז</span></div>
     <h1>מורה יוצר מפתח - בעידן הבינה</h1>
-    <p class="sub">Gemini ו-ChatGPT בעבודת המורה · בהנחיית שירה רוט זליקוביץ</p>
+    <p class="sub">10 מפגשים · בהנחיית שירה רוט זליקוביץ</p>
     <div class="grid" id="grid"></div>
   </div>
   <div class="sig">© שירה רוט זליקוביץ · הוראה יצירתית עם AI · <a href="https://wa.me/972523930628" target="_blank" rel="noopener">ווטסאפ</a> · <a href="https://www.lomdot.org/" target="_blank" rel="noopener">להזמנת סדנאות בינה מלאכותית</a></div>
@@ -67,11 +66,20 @@ a.s .go{position:absolute;top:22px;left:18px;background:var(--orange);color:var(
 /* page = עמוד המפגש. מפגש בלי page מוצג "בקרוב".
    openAt = מתי העמוד נפתח (שעון ישראל). עד אז הכרטיס מוצג "בקרוב" */
 const SESSIONS=[
- {date:'24.11',type:'פרונטלי',title:'מורה יוצר מפתח - בעידן הבינה',desc:'פרומפט טוב, אוטומציות, סקילים, Storybook וקבוצות אתגר',page:'lesson-1.html',openAt:'2026-11-24T12:00:00+02:00'}
+ {date:'24.11',type:'פרונטלי',title:'מורה יוצר בעידן הבינה',desc:'פרומפט, אוטומציות וקבוצות אתגר',page:'lesson-1.html',openAt:'2026-11-24T12:00:00+02:00'},
+ {date:'8.12',type:'זום',title:'נוטבוק וגימיני',desc:'בלמידה, בהוראה ובהערכה'},
+ {date:'22.12',type:'למידה משותפת',title:'יצירה חזותית בהוראה',desc:''},
+ {date:'5.1',type:'זום',title:'יצירה ועריכת וידאו עם AI',desc:''},
+ {date:'19.1',type:'זום',title:'מרעיון לסרטון',desc:''},
+ {date:'2.2',type:'א-סינכרוני',title:'יצירת סרטון',desc:''},
+ {date:'16.2',type:'זום',title:'ממורה למפתח',desc:'פיתוח בקוד'},
+ {date:'2.3',type:'זום',title:'פיתוח בקוד',desc:'אפקט הרווח הכפול'},
+ {date:'16.3',type:'למידה משותפת',title:'פיתוח בקוד',desc:'אפקט הרווח הכפול'},
+ {date:'6.4',type:'זום',title:'למידת עמיתים וסיכום',desc:'יישום יחידת הלמידה ורפלקציה'}
 ];
 const isOpen=s=>s.page&&(!s.openAt||Date.now()>=Date.parse(s.openAt));
 function drawCards(){document.getElementById('grid').innerHTML=SESSIONS.map((s,i)=>{
-  const inner=`<div class="top"><span class="n">${i+1}</span><span class="d">${s.date}</span></div><h2>${s.title}</h2><p class="desc">${s.desc||''}</p><span class="t${s.type==='מטלה'?' task':''}">${s.type}</span>`;
+  const inner=`<div class="top"><span class="n">${i+1}</span><span class="d">${s.date}</span></div><h2>${s.title}</h2><p class="desc">${s.desc||''}</p><span class="t${s.type==='מטלה'||s.type==='א-סינכרוני'?' task':''}">${s.type}</span>`;
   return isOpen(s)?`<a class="s" href="${s.page}">${inner}<span class="go">כניסה</span></a>`:`<div class="s soon">${inner}</div>`;
 }).join('')}
 drawCards();
