@@ -721,6 +721,8 @@ button.wheel{border:0;cursor:pointer;font-family:'Heebo',sans-serif}
 .skgrid .formula{flex-wrap:wrap}
 .skex .ex{padding:16px 22px}
 .skex .ex span{display:block;white-space:pre-line;font-size:18px;line-height:1.5;max-height:330px;overflow:auto;padding-left:8px}
+.tdoc{display:flex;align-items:center;justify-content:center;gap:12px;background:var(--c);color:#fff;text-decoration:none;border-radius:18px;padding:16px 20px;font:700 26px 'Heebo',sans-serif;box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.tdoc svg{width:30px;height:30px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .pbad{background:#F3F5F7;flex:0 0 300px !important}
 .pbad p{color:var(--muted);text-decoration:line-through;text-decoration-color:#E2448F}
 .pgood{background:#FFFBEA;border:2px solid var(--yellow)}
@@ -864,7 +866,7 @@ document.getElementById('rooms').innerHTML=ROOMS.map((r,i)=>`<div role="button" 
 function roomHTML(i){const r=ROOMS[i];return `<div class="tbl" style="--c:${r.c}">
   <div><div class="ttask"><small>המשימה</small><b>${r.task}</b><span class="ttool">${r.tool}</span></div>
    <ol class="tsteps">${r.steps.map(x=>`<li>${x}</li>`).join('')}</ol></div>
-  <div class="tside">${ex('פרומפט לדוגמה',r.ex)}<div class="tshow"><small>מקרינים בסוף</small><b>${r.show}</b></div></div></div>`}
+  <div class="tside">${ex('פרומפט לדוגמה',r.ex)}<div class="tshow"><small>מקרינים בסוף</small><b>${r.show}</b></div>${r.doc?`<a class="tdoc" href="${r.doc}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>הדף של הקבוצה</a>`:''}</div></div>`}
 {const d=document.getElementById('donut');if(d&&LINKS.donut){d.href=LINKS.donut;d.classList.remove('off')}}
 
 
