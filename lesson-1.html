@@ -59,11 +59,12 @@ html,body{margin:0;height:100%;overflow:hidden;background:#EEF4F6;font-family:'H
 .bar a{font-weight:700;font-size:18px;color:var(--deep)}
 .mfs{font:700 18px 'Heebo',sans-serif;color:#fff;background:var(--deep);border:0;border-radius:999px;padding:8px 20px;cursor:pointer}
 #modal .box.big{width:1560px;height:880px;max-height:880px}
-#modal .box.big .aboutme{display:flex;align-items:center;justify-content:center;height:100%}
-#modal .box.big .aboutme .me{display:none}
-#modal .box.big .you{width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 90px}
-#modal .box.big .you h3{font-size:90px;margin-bottom:30px}
-#modal .box.big .you ol{font-size:76px;line-height:1.7;padding:0;margin:0;list-style-position:inside}
+#modal .box.big:not(.fsq) .content:not(.frame){zoom:1.15}
+#modal .box.big.fsq .aboutme{display:flex;align-items:center;justify-content:center;height:100%}
+#modal .box.big.fsq .aboutme .me{display:none}
+#modal .box.big.fsq .you{width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 90px}
+#modal .box.big.fsq .you h3{font-size:90px;margin-bottom:30px}
+#modal .box.big.fsq .you ol{font-size:76px;line-height:1.7;padding:0;margin:0;list-style-position:inside}
 .x{width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:#fff;font:400 30px/1 'Heebo';color:var(--deep);cursor:pointer}
 .x:hover{background:var(--soft)}
 .content{flex:1;min-height:0;overflow:auto;padding:26px 44px 30px;font-size:26px;color:var(--ink);line-height:1.5}
@@ -1187,18 +1188,18 @@ function loadSheetFrom(id,gid){return new Promise((ok,fail)=>{const cb='cb'+Date
 
 /* ===== מנגנון החלון ===== */
 /* מסך מלא: הדף כולו עובר למסך מלא, והחלון גדל כמעט לכל הבמה */
-function fsOff(){const b=document.querySelector('#modal .box');if(b&&b.classList.contains('big')){b.classList.remove('big');if(document.fullscreenElement)document.exitFullscreen().catch(()=>{})}const f=document.getElementById('mFs');if(f)f.textContent='השאלות במסך מלא'}
+function fsOff(){const b=document.querySelector('#modal .box');if(b&&b.classList.contains('big')){b.classList.remove('big');if(document.fullscreenElement)document.exitFullscreen().catch(()=>{})}const f=document.getElementById('mFs');if(f)f.textContent=f.dataset.label||'מסך מלא'}
 function fsToggle(){const b=document.querySelector('#modal .box'),f=document.getElementById('mFs');
   if(b.classList.contains('big')){fsOff();return}
   b.classList.add('big');f.textContent='חזרה';const r=document.documentElement.requestFullscreen;if(r&&!document.fullscreenElement)r.call(document.documentElement).catch(()=>{})}
 document.addEventListener('click',e=>{if(e.target.closest('#mFs'))fsToggle()});
-document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement){const b=document.querySelector('#modal .box.big');if(b){b.classList.remove('big');document.getElementById('mFs').textContent='השאלות במסך מלא'}}});
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement){const b=document.querySelector('#modal .box.big');if(b){b.classList.remove('big');const f=document.getElementById('mFs');f.textContent=f.dataset.label||'מסך מלא'}}});
 const $m=()=>document.getElementById('modal'),$b=()=>document.getElementById('mBody'),$e=()=>document.getElementById('mExt');
 function openWin(k,src){const modal=$m(),body=$b(),ext=$e();
   const w=WIN[k](src);document.getElementById('mTitle').textContent=w.t;
   const ic=src&&src.querySelector('.art svg,.ic svg');document.getElementById('mIc').innerHTML=ic?ic.outerHTML:'';document.getElementById('mIc').style.display=ic?'':'none';
   body.className='content'+(w.f?' frame':'');body.innerHTML=w.h;
-  if(w.u){ext.href=w.u;ext.style.display=''}else ext.style.display='none';document.getElementById('mFs').hidden=!w.fs;
+  if(w.u){ext.href=w.u;ext.style.display=''}else ext.style.display='none';{const f=document.getElementById('mFs');f.hidden=false;f.dataset.label=w.fs?'השאלות במסך מלא':'מסך מלא';f.textContent=f.dataset.label;document.querySelector('#modal .box').classList.toggle('fsq',!!w.fs)}
   if(TECH.includes(k))ideasUI();else removeIdeasUI();
   modal.classList.add('on'); if(w.after) w.after();
   body.querySelectorAll('.copy').forEach(b=>b.onclick=()=>navigator.clipboard.writeText(b.parentNode.querySelector('span').textContent).then(()=>{b.textContent='הועתק';setTimeout(()=>b.textContent='העתקה',1500)}));
