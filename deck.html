@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ממורה למפתח</title>
+<title>מורה יוצר מפתח - בעידן הבינה</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Rubik:wght@300;400;500;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
@@ -71,7 +71,7 @@ p{margin:0}
 .cur{display:inline-block;width:14px;height:34px;background:var(--cyan);vertical-align:-6px;animation:blink .9s step-end infinite}
 @keyframes blink{50%{opacity:0}}
 .hero .title{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transform:scale(.94);transition:opacity 1s .2s,transform 1s .2s;pointer-events:none}
-.hero .title h1{font-size:250px}
+.hero .title h1{font-size:210px;max-width:1300px}
 .hero .title p{font-size:38px;color:var(--muted);margin-top:20px;font-weight:300}
 .hero.done .term{transform:translateY(-40px) scale(.6);opacity:0}
 .hero.done .title{opacity:1;transform:none}
@@ -249,7 +249,7 @@ p{margin:0}
 const DONUT='https://gemini.google.com/share/7e1a9557a41a'; // קישור למחולל הסופגניות
 const STUDENTS='https://campus-hamad.github.io/botpoint/'; // הכלי שהתלמידים בנו בהאקתון
 const SLIDES=[
- {k:'hero',prompt:'בנה לי אתר להשתלמות "מורה יוצר מפתח - בעידן הבינה" למורים בפסגה אשדוד, עם סקר, קבוצות אתגר ופדלט',steps:['קורא את הבקשה...','בונה עמוד בית ועמוד מפגש...','מחבר סקר עם תוצאות חיות...'],title:'ממורה למפתח',sub:'שירה רוט זליקוביץ'},
+ {k:'hero',prompt:'בנה לי אתר להשתלמות "מורה יוצר מפתח - בעידן הבינה" למורים בפסגה אשדוד, עם סקר, קבוצות אתגר ופדלט',steps:['קורא את הבקשה...','בונה עמוד בית ועמוד מפגש...','מחבר סקר עם תוצאות חיות...'],title:'מורה יוצר מפתח',sub:'בעידן הבינה · שירה רוט זליקוביץ'},
  {k:'vid',chip:'אווטאר',h:'נעים מאוד',p:'העוזרת הדיגיטלית שלי...',v:{src:'assets/deck/canva/p2.mp4',cx:639,cy:365,r:358}},
  {k:'story',name:'שירה רוט זליקוביץ',role:'מומחית בטכנולוגיות בחינוך ובהוראה יצירתית עם AI',nodes:[
    {t:'פעם',h:'תקשורת חזותית, פרסום ושיווק',p:'שנים של עיצוב, רעיונות ומסרים.'},
