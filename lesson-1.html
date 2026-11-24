@@ -717,6 +717,10 @@ button.wheel{border:0;cursor:pointer;font-family:'Heebo',sans-serif}
 .skwhat{background:#F6FAFD;border-right:8px solid #7A5BD6;border-radius:18px;padding:18px 26px;margin-bottom:18px}
 .skwhat b{display:block;font-size:30px;color:#4B2FA8;margin-bottom:6px}
 .skwhat p{margin:0;font-size:25px;line-height:1.55}
+.skgrid{display:grid;grid-template-columns:1fr 1.25fr;gap:28px;align-items:start}
+.skgrid .formula{flex-wrap:wrap}
+.skex .ex{padding:16px 22px}
+.skex .ex span{display:block;white-space:pre-line;font-size:18px;line-height:1.5;max-height:330px;overflow:auto;padding-left:8px}
 .pbad{background:#F3F5F7;flex:0 0 300px !important}
 .pbad p{color:var(--muted);text-decoration:line-through;text-decoration-color:#E2448F}
 .pgood{background:#FFFBEA;border:2px solid var(--yellow)}
@@ -747,7 +751,7 @@ button.wheel{border:0;cursor:pointer;font-family:'Heebo',sans-serif}
       <div role="button" tabindex="0" data-move class="act" data-open="prompt"><span class="art"><svg class="a" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="#FFF3C4"/><g transform="rotate(45 32 32)"><rect x="26" y="8" width="12" height="36" rx="2" fill="#F5B800"/><rect x="26" y="8" width="12" height="7" fill="#F28AB2"/><rect x="26" y="15" width="12" height="3" fill="#9AA5AB"/><path d="M26 44h12l-6 10z" fill="#F4D7A8"/><path d="M30 50.7h4L32 54z" fill="#2F3437"/></g></svg></span><span data-edit>איך כותבים פרומפט טוב</span></div>
       <div class="phead sub">דברים שלא ידעתם</div>
       <div role="button" tabindex="0" data-move class="act" data-open="auto"><span class="art"><svg class="a" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="#FFF3C4"/><rect x="12" y="15" width="40" height="38" rx="6" fill="#fff" stroke="#0B4F7C" stroke-width="3"/><path d="M12 25h40" stroke="#0B4F7C" stroke-width="3"/><path d="M22 10v9M42 10v9" stroke="#0B4F7C" stroke-width="3.5" stroke-linecap="round"/><circle cx="40" cy="42" r="12" fill="#FFC83D" stroke="#0B4F7C" stroke-width="3"/><path d="M40 35v7l5 3" stroke="#0B4F7C" stroke-width="3" fill="none" stroke-linecap="round"/></svg></span><span data-edit>אוטומציות<small>משימות מתוזמנות, חיבור לדרייב</small></span></div>
-      <div role="button" tabindex="0" data-move class="act" data-open="skills"><span class="art"><svg class="a" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="#EDE6FB"/><path d="M14 22a4 4 0 0 1 4-4h28a4 4 0 0 1 4 4v24a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4z" fill="#7A5BD6"/><path d="M24 18v-4a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v4" fill="none" stroke="#7A5BD6" stroke-width="3.5"/><path d="M33 24l-6 10h6l-2 10 8-12h-6l2-8z" fill="#FFC83D"/></svg></span><span data-edit>סקילים<small>מלמדים את Claude את העבודה שלכם</small></span></div>
+      <div role="button" tabindex="0" data-move class="act" data-open="skills"><span class="art"><svg class="a" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="#EDE6FB"/><path d="M14 22a4 4 0 0 1 4-4h28a4 4 0 0 1 4 4v24a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4z" fill="#7A5BD6"/><path d="M24 18v-4a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v4" fill="none" stroke="#7A5BD6" stroke-width="3.5"/><path d="M33 24l-6 10h6l-2 10 8-12h-6l2-8z" fill="#FFC83D"/></svg></span><span data-edit>סקילים<small>מלמדים את Gemini את העבודה שלכם</small></span></div>
       <div role="button" tabindex="0" data-move class="act" data-open="story"><span class="art"><svg class="a" viewBox="0 0 64 64"><path d="M8 14c8-4 16-4 24 2v38c-8-6-16-6-24-2z" fill="#F6B8D9" stroke="#0B4F7C" stroke-width="2.5" stroke-linejoin="round"/><path d="M56 14c-8-4-16-4-24 2v38c8-6 16-6 24-2z" fill="#9FDCF5" stroke="#0B4F7C" stroke-width="2.5" stroke-linejoin="round"/><path d="M50 4l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#FFC83D"/></svg></span><span data-edit>Storybook<small>ספר מאויר עם הקראה</small></span></div>
     </div>
     <div class="panel light">
@@ -821,7 +825,7 @@ const idea=()=>`<div class="try idea"><span class="lbl">הקיר המשותף</s
 const frame=u=>`<iframe src="${u}" allowfullscreen allow="fullscreen; clipboard-write"></iframe>`;
 /* תמונות לדוגמה: שמים קובץ בתיקייה assets/lesson2 בשם שמופיע כאן, והוא מופיע בחלון */
 const IMG='assets/lesson1/';
-const SKILL_PROMPT='הפרומפט יופיע כאן'; // הפרומפט לדוגמה בחלון הסקילים
+const SKILL_PROMPT="אני רוצה ליצור סקיל חדש ליצירת דפי עבודה קבועים לפי המתכונת הבאה:\n\n• קהל היעד והמקצוע: [לדוגמה: תלמידי כיתה ה' במתמטיקה / שיעורי אנגלית למתחילים]\n• מבנה הדף הקבוע (סדר החלקים):\n   1. כותרת עליונה: שורת שם התלמיד, תאריך, וכותרת הנושא במרכז.\n   2. פתיחה / תזכורת קצרה: תיבת הסבר או דוגמה פתורה אחת (עד 3 שורות).\n   3. חלק א' (חימום / הבנה בסיסית): [לדוגמה: 5 שאלות אמריקאיות או השלמת מילים].\n   4. חלק ב' (תרגול מרכזי): [לדוגמה: 6 תרגילים ברמת קושי עולה עם מקום לכתיבת הפתרון].\n   5. חלק ג' (אתגר / בונוס): שאלת חשיבה אחת בסוף הדף.\n• חוקים ודגשים לעיצוב ולתוכן:\n   ◦ שפה ברורה, מנוקדת / לא מנוקדת [בחר], ופנייה בגוף [שני יחיד / רבים].\n   ◦ להשאיר רווחים ברורים (קווים ריקים או טבלה) לכתיבת התשובות.\n   ◦ בסוף הדף (בעמוד נפרד או מתחת לקו הפרדה), להוסיף תמיד מחוון תשובות למורה.\n• אופן השימוש: מעכשיו, בכל פעם שאכתוב לך \"צור דף עבודה בנושא [X]\", תיצור את הדף בדיוק לפי המבנה והכללים האלה."; // הפרומפט לדוגמה בחלון הסקילים. מחליפים את מה שבסוגריים המרובעים
 /* לשוניות בחלון האוטומציות */
 function atabsInit(){const b=document.getElementById('mBody');b.querySelectorAll('.atabs button').forEach(x=>x.onclick=()=>{b.querySelectorAll('.atabs button').forEach(y=>y.classList.toggle('on',y===x));b.querySelectorAll('.atp').forEach(t=>t.hidden=t.dataset.at!==x.dataset.at)})}
 const gal=(items,cls='')=>`<div class="gal ${cls}" style="--n:${items.length}">${items.map(([f,c],i)=>`<figure class="fig">${i?'<span class="arr">&larr;</span>':''}<figcaption class="cap">${c}</figcaption><div class="ph"><img src="${IMG+f}.jpg" alt="" onload="this.parentNode.classList.add('has')" onerror="this.remove()"><em>מקום לתמונה<br><small>${f}.jpg</small></em></div></figure>`).join('')}</div>`;
@@ -843,10 +847,11 @@ const WIN={
   ${gal([['drive-1','לוחצים + ובוחרים Drive'],['drive-2','או כותבים @Google Drive'],['drive-3','הבינה עונה מתוך הקובץ שלכם']])}
   ${ex('פרומפט לדוגמה','@Google Drive מצא את המבחן האחרון שלי, והכן ממנו דף חזרה עם 10 שאלות בשלוש רמות קושי.')}</div>`}),
  skills:()=>({t:'סקילים',h:`
-  <div class="skwhat"><b>מה זה סקיל?</b><p>סקיל הוא "מדריך עבודה" שמלמדים את Claude פעם אחת. כותבים בו איך אתם עושים משהו, ומצרפים דוגמאות. מאותו רגע Claude שומר אותו, ומפעיל אותו לבד בכל פעם שזה רלוונטי, בלי שתצטרכו להסביר שוב.</p></div>
-  <div class="formula"><span>הוראות</span><i>+</i><span>דוגמאות וקבצים</span><i>+</i><span>מתי להפעיל</span><i>=</i><span>סקיל</span></div>
-  ${ex('פרומפט לדוגמה',SKILL_PROMPT)}
-  ${tryIt('ב-Claude נכנסים להגדרות ← יכולות ← סקילים, ובוחרים סקיל מוכן או יוצרים חדש.','https://claude.ai','לפתיחת Claude')}`}),
+  <div class="skgrid"><div>
+  <div class="skwhat"><b>מה זה סקיל?</b><p>סקיל הוא "מדריך עבודה" שמלמדים את Gemini פעם אחת. כותבים בו איך אתם עושים משהו, ומצרפים דוגמאות. מאותו רגע Gemini שומר אותו, ומפעיל אותו לבד בכל פעם שזה רלוונטי, בלי שתצטרכו להסביר שוב.</p></div>
+  <div class="formula"><span>הוראות</span><i>+</i><span>דוגמאות וקבצים</span><i>+</i><span>מתי להפעיל</span><i>=</i><span>סקיל</span></div></div>
+  <div class="skex">${ex('פרומפט לדוגמה: סקיל לדפי עבודה. מחליפים את מה שבסוגריים המרובעים',SKILL_PROMPT)}</div></div>
+  ${tryIt('פותחים את Gemini, מדביקים את הפרומפט, ומחליפים את מה שבסוגריים המרובעים בפרטים שלכם.',GEMINI)}`}),
  story:()=>({t:'Storybook',h:`<div class="cols2"><div><p class="slead">Gemini יוצר ספר סיפור מאויר של 10 עמודים, עם הקראה בקול.</p><ol class="steps"><li><div>נכנסים ל-<b>Gemini</b>.</div></li><li><div>בוחרים <b>Storybook</b> בכלים.</div></li><li><div>כותבים על מה הסיפור, ולאיזה גיל.</div></li><li><div>מקבלים ספר עם איורים, ולוחצים על <b>הקראה</b>.</div></li></ol></div><div>${ex('דוגמה','כתוב ספר קצר לכיתה ב׳ על ילד שלומד לבקש סליחה. משפט אחד או שניים בכל עמוד.')}</div></div><div class="books">${STORIES.map(b=>`<a class="book" href="${b.u}" target="_blank" rel="noopener"><span class="cover" style="background:${b.c}"><span class="spine"></span><svg viewBox="0 0 24 24">${b.i}</svg></span><span class="bt2">${b.t}</span></a>`).join('')}</div>`}),
  room:(el)=>{const i=+el.dataset.r,r=ROOMS[i];return {t:'חדר '+(i+1)+' · '+r.t,u:r.doc,h:roomHTML(i)}},
  deck:()=>({t:'מצגת המפגש',u:LINKS.deck,f:!!LINKS.deck,h:LINKS.deck?frame(LINKS.deck):'<div class="empty">המצגת תופיע כאן</div>'}),
