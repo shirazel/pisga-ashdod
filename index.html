@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>הכלים שלא הכרתם · פסגה אשדוד</title>
+<title>מורה יוצר מפתח - בעידן הבינה · פסגה אשדוד</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -56,7 +56,7 @@ a.s .go{position:absolute;top:22px;left:18px;background:var(--orange);color:var(
   <div class="sheet">
     <img class="logo" src="assets/lomdot-logo-no-tagline.png" alt="לומדות">
     <div class="eyebrow"><span>מפגש למורים</span><span>פסגה אשדוד</span><span>תשפ"ז</span></div>
-    <h1>הכלים של הבינה המלאכותית שלא הכרתם</h1>
+    <h1>מורה יוצר מפתח - בעידן הבינה</h1>
     <p class="sub">Gemini ו-ChatGPT בעבודת המורה · בהנחיית שירה רוט זליקוביץ</p>
     <div class="grid" id="grid"></div>
   </div>
@@ -67,7 +67,7 @@ a.s .go{position:absolute;top:22px;left:18px;background:var(--orange);color:var(
 /* page = עמוד המפגש. מפגש בלי page מוצג "בקרוב".
    openAt = מתי העמוד נפתח (שעון ישראל). עד אז הכרטיס מוצג "בקרוב" */
 const SESSIONS=[
- {date:'24.11',type:'פרונטלי',title:'הכלים שלא הכרתם',desc:'פרומפט טוב, משימות מתוזמנות, דרייב, סקילים, Storybook וחדרי אתגר',page:'lesson-1.html',openAt:'2026-11-24T12:00:00+02:00'}
+ {date:'24.11',type:'פרונטלי',title:'מורה יוצר מפתח - בעידן הבינה',desc:'פרומפט טוב, אוטומציות, סקילים, Storybook וחדרי אתגר',page:'lesson-1.html',openAt:'2026-11-24T12:00:00+02:00'}
 ];
 const isOpen=s=>s.page&&(!s.openAt||Date.now()>=Date.parse(s.openAt));
 function drawCards(){document.getElementById('grid').innerHTML=SESSIONS.map((s,i)=>{

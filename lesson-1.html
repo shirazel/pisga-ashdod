@@ -6,7 +6,7 @@
 <script>/* העמוד נפתח ב-24.11 בשעה 12:00. לפני זה רק העורכת, או קישור עם ?preview */
 (function(){try{if(Date.now()<Date.parse('2026-11-24T12:00:00+02:00')&&!/[?&]preview(=|&|$)/.test(location.search)&&!localStorage.getItem('padEditorKey'))location.replace('index.html')}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>פסגה אשדוד · הכלים שלא הכרתם</title>
+<title>פסגה אשדוד · מורה יוצר מפתח - בעידן הבינה</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -711,6 +711,9 @@ button.wheel{border:0;cursor:pointer;font-family:'Heebo',sans-serif}
 .aboutme{grid-template-columns:1.6fr 1fr;align-items:start}
 .aboutme .ph{width:140px !important;height:140px !important;flex:0 0 140px;border-width:4px}
 .aboutme b{font-size:44px}
+.atabs{display:flex;gap:10px;margin-bottom:16px}
+.atabs button{border:2px solid #DCEFFB;background:#fff;border-radius:999px;padding:6px 22px;font:700 21px 'Heebo',sans-serif;color:#1E5D96;cursor:pointer}
+.atabs button.on{background:#2B78C5;border-color:#2B78C5;color:#fff}
 .pbad{background:#F3F5F7;flex:0 0 300px !important}
 .pbad p{color:var(--muted);text-decoration:line-through;text-decoration-color:#E2448F}
 .pgood{background:#FFFBEA;border:2px solid var(--yellow)}
@@ -724,7 +727,7 @@ button.wheel{border:0;cursor:pointer;font-family:'Heebo',sans-serif}
   <div class="sheet"></div>
 
   <div class="top">
-    <span class="badge">פסגה אשדוד</span><h1>הכלים שלא הכרתם</h1>
+    <span class="badge">פסגה אשדוד</span><h1>מורה יוצר מפתח - בעידן הבינה</h1>
     <div class="date">24.11</div>
     <div class="actions">
       <a class="home" href="index.html"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>עמוד הבית</a>
@@ -740,8 +743,7 @@ button.wheel{border:0;cursor:pointer;font-family:'Heebo',sans-serif}
       <div role="button" tabindex="0" data-move class="act" data-open="survey"><span class="art"><svg class="a" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="#E8F1FB"/><rect x="12" y="34" width="9" height="16" rx="2" fill="#2B78C5"/><rect x="27" y="22" width="9" height="28" rx="2" fill="#E2448F"/><rect x="42" y="14" width="9" height="36" rx="2" fill="#FFC83D"/><path d="M9 52h46" stroke="#0B4F7C" stroke-width="3" stroke-linecap="round"/></svg></span><span data-edit>סקר קצר<small>כמה אנחנו משתמשים בבינה?</small></span></div>
       <div role="button" tabindex="0" data-move class="act" data-open="prompt"><span class="art"><svg class="a" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="#FFF3C4"/><g transform="rotate(45 32 32)"><rect x="26" y="8" width="12" height="36" rx="2" fill="#F5B800"/><rect x="26" y="8" width="12" height="7" fill="#F28AB2"/><rect x="26" y="15" width="12" height="3" fill="#9AA5AB"/><path d="M26 44h12l-6 10z" fill="#F4D7A8"/><path d="M30 50.7h4L32 54z" fill="#2F3437"/></g></svg></span><span data-edit>איך כותבים פרומפט טוב</span></div>
       <div class="phead sub">דברים שלא ידעתם</div>
-      <div role="button" tabindex="0" data-move class="act" data-open="sched"><span class="art"><svg class="a" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="#FFF3C4"/><rect x="12" y="15" width="40" height="38" rx="6" fill="#fff" stroke="#0B4F7C" stroke-width="3"/><path d="M12 25h40" stroke="#0B4F7C" stroke-width="3"/><path d="M22 10v9M42 10v9" stroke="#0B4F7C" stroke-width="3.5" stroke-linecap="round"/><circle cx="40" cy="42" r="12" fill="#FFC83D" stroke="#0B4F7C" stroke-width="3"/><path d="M40 35v7l5 3" stroke="#0B4F7C" stroke-width="3" fill="none" stroke-linecap="round"/></svg></span><span data-edit>משימות מתוזמנות<small>המשימה בדף השיתופי</small></span></div>
-      <div role="button" tabindex="0" data-move class="act" data-open="drive"><span class="art"><svg class="a" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="#E3F6EA"/><path d="M24 12h16l16 28H40z" fill="#FFC83D"/><path d="M24 12L8 40l8 14 16-28z" fill="#3DBE7A"/><path d="M16 54h32l8-14H24z" fill="#2B78C5"/></svg></span><span data-edit>שיתוף בגוגל דרייב<small>הבינה קוראת את הקבצים</small></span></div>
+      <div role="button" tabindex="0" data-move class="act" data-open="auto"><span class="art"><svg class="a" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="#FFF3C4"/><rect x="12" y="15" width="40" height="38" rx="6" fill="#fff" stroke="#0B4F7C" stroke-width="3"/><path d="M12 25h40" stroke="#0B4F7C" stroke-width="3"/><path d="M22 10v9M42 10v9" stroke="#0B4F7C" stroke-width="3.5" stroke-linecap="round"/><circle cx="40" cy="42" r="12" fill="#FFC83D" stroke="#0B4F7C" stroke-width="3"/><path d="M40 35v7l5 3" stroke="#0B4F7C" stroke-width="3" fill="none" stroke-linecap="round"/></svg></span><span data-edit>אוטומציות<small>משימות מתוזמנות, חיבור לדרייב</small></span></div>
       <div role="button" tabindex="0" data-move class="act" data-open="skills"><span class="art"><svg class="a" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="#EDE6FB"/><path d="M14 22a4 4 0 0 1 4-4h28a4 4 0 0 1 4 4v24a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4z" fill="#7A5BD6"/><path d="M24 18v-4a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v4" fill="none" stroke="#7A5BD6" stroke-width="3.5"/><path d="M33 24l-6 10h6l-2 10 8-12h-6l2-8z" fill="#FFC83D"/></svg></span><span data-edit>סקילים<small>מלמדים את Claude את העבודה שלכם</small></span></div>
       <div role="button" tabindex="0" data-move class="act" data-open="story"><span class="art"><svg class="a" viewBox="0 0 64 64"><path d="M8 14c8-4 16-4 24 2v38c-8-6-16-6-24-2z" fill="#F6B8D9" stroke="#0B4F7C" stroke-width="2.5" stroke-linejoin="round"/><path d="M56 14c-8-4-16-4-24 2v38c8-6 16-6 24-2z" fill="#9FDCF5" stroke="#0B4F7C" stroke-width="2.5" stroke-linejoin="round"/><path d="M50 4l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#FFC83D"/></svg></span><span data-edit>Storybook<small>ספר מאויר עם הקראה</small></span></div>
     </div>
@@ -816,6 +818,8 @@ const idea=()=>`<div class="try idea"><span class="lbl">הקיר המשותף</s
 const frame=u=>`<iframe src="${u}" allowfullscreen allow="fullscreen; clipboard-write"></iframe>`;
 /* תמונות לדוגמה: שמים קובץ בתיקייה assets/lesson2 בשם שמופיע כאן, והוא מופיע בחלון */
 const IMG='assets/lesson1/';
+/* לשוניות בחלון האוטומציות */
+function atabsInit(){const b=document.getElementById('mBody');b.querySelectorAll('.atabs button').forEach(x=>x.onclick=()=>{b.querySelectorAll('.atabs button').forEach(y=>y.classList.toggle('on',y===x));b.querySelectorAll('.atp').forEach(t=>t.hidden=t.dataset.at!==x.dataset.at)})}
 const gal=(items,cls='')=>`<div class="gal ${cls}" style="--n:${items.length}">${items.map(([f,c],i)=>`<figure class="fig">${i?'<span class="arr">&larr;</span>':''}<figcaption class="cap">${c}</figcaption><div class="ph"><img src="${IMG+f}.jpg" alt="" onload="this.parentNode.classList.add('has')" onerror="this.remove()"><em>מקום לתמונה<br><small>${f}.jpg</small></em></div></figure>`).join('')}</div>`;
 const WIN={
  survey:()=>({t:'כמה אנחנו משתמשים בבינה מלאכותית?',u:SURVEY.form,h:`<div class="svtabs"><button class="on" data-sv="q">סריקה</button><button data-sv="r">תוצאות</button></div><div id="svBody"></div>`,after:svInit}),
@@ -826,12 +830,14 @@ const WIN={
   <div class="pcmp"><div class="pbad"><small>במקום</small><p>תכין לי דף עבודה על שברים.</p></div><span class="parr">&larr;</span>
    <div class="pgood"><small>כותבים</small><span class="pt">אתה מורה מנוסה למתמטיקה. הכן דף עבודה על שברים פשוטים לכיתה ה׳, עם 8 תרגילים מהקל לקשה ושאלה אחת מחיי היומיום. בלי תשובות בדף.</span><button class="copy" type="button">העתקה</button></div></div>
   ${tryIt('שפרו פרומפט שלכם: הוסיפו לו "למי" ו"איך זה ייראה", ובדקו מה השתנה.',GEMINI)}`}),
- sched:()=>({t:'משימות מתוזמנות',u:LINKS.sched,h:`
+ auto:()=>({t:'אוטומציות',u:LINKS.sched,after:atabsInit,h:`
+  <div class="atabs"><button type="button" class="on" data-at="a">משימות מתוזמנות</button><button type="button" data-at="b">חיבור לדרייב</button></div>
+  <div class="atp" data-at="a">
   ${gal([['sched-1','כותבים בקשה עם זמן: "כל יום ראשון ב-7:00..."'],['sched-2','Gemini מאשר שהמשימה נשמרה'],['sched-3','בהגדרות: עורכים או עוצרים']])}
-  <div class="try"><span class="lbl">המשימה</span><span class="txt">פותחים את הדף השיתופי, כותבים בו משימה מתוזמנת אחת שבניתם, ומה היא שולחת לכם.</span>${LINKS.sched?`<a href="${LINKS.sched}" target="_blank" rel="noopener">לדף השיתופי</a>`:''}</div>`}),
- drive:()=>({t:'שיתוף בגוגל דרייב',h:`
+  <div class="try"><span class="lbl">המשימה</span><span class="txt">פותחים את הדף השיתופי, כותבים בו משימה מתוזמנת אחת שבניתם, ומה היא שולחת לכם.</span>${LINKS.sched?`<a href="${LINKS.sched}" target="_blank" rel="noopener">לדף השיתופי</a>`:''}</div></div>
+  <div class="atp" data-at="b" hidden>
   ${gal([['drive-1','לוחצים + ובוחרים Drive'],['drive-2','או כותבים @Google Drive'],['drive-3','הבינה עונה מתוך הקובץ שלכם']])}
-  ${ex('פרומפט לדוגמה','@Google Drive מצא את המבחן האחרון שלי, והכן ממנו דף חזרה עם 10 שאלות בשלוש רמות קושי.')}`}),
+  ${ex('פרומפט לדוגמה','@Google Drive מצא את המבחן האחרון שלי, והכן ממנו דף חזרה עם 10 שאלות בשלוש רמות קושי.')}</div>`}),
  skills:()=>({t:'סקילים',h:`
   ${gal([['skills-1','סקיל = הוראות וקבצים ש-Claude טוען לבד, כשצריך'],['skills-2','מלמדים אותו פעם אחת: מערך שיעור בתבנית של בית הספר'],['skills-3','"תכין מערך על שברים", והוא כבר יודע את הפורמט']])}
   ${tryIt('ב-Claude נכנסים להגדרות ← יכולות ← סקילים, ובוחרים סקיל מוכן או יוצרים חדש.','https://claude.ai','לפתיחת Claude')}`}),
@@ -855,7 +861,7 @@ function roomHTML(i){const r=ROOMS[i];return `<div class="tbl" style="--c:${r.c}
    קריאה: מהגיליון, לשונית "רעיונות". הוספה: דרך הסקריפט רעיונות-לכיתה.gs
    את קישור הסקריפט שמים ב-IDEAS_API, או בגיליון: כל המפגשים | סקריפט | רעיונות | קישור */
 let IDEAS_API='';
-const TECH=['prompt','sched','drive','skills','story','room'];
+const TECH=['prompt','auto','skills','story','room'];
 let IDEAS=null;
 const BULB='<svg viewBox="0 0 64 64"><path d="M32 6a18 18 0 0 0-10 33c2 1.6 3 3.6 3 6v3h14v-3c0-2.4 1-4.4 3-6A18 18 0 0 0 32 6z" fill="#FFC83D"/><rect x="25" y="50" width="14" height="4" rx="2" fill="#7A8489"/><rect x="27" y="56" width="10" height="4" rx="2" fill="#7A8489"/><path d="M27 30l5 6 5-6" stroke="#E29A00" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const curTech=()=>document.getElementById('mTitle').textContent;
