@@ -704,16 +704,6 @@ button.wheel{border:0;cursor:pointer;font-family:'Heebo',sans-serif}
 .aboutme{grid-template-columns:1.6fr 1fr;align-items:start}
 .aboutme .ph{width:140px !important;height:140px !important;flex:0 0 140px;border-width:4px}
 .aboutme b{font-size:44px}
-.ptabs{display:flex;gap:10px;margin-bottom:16px}
-.ptabs button{border:2px solid #DCEFFB;background:#fff;border-radius:999px;padding:6px 22px;font:700 21px 'Heebo',sans-serif;color:#1E5D96;cursor:pointer}
-.ptabs button.on{background:#2B78C5;border-color:#2B78C5;color:#fff}
-.plead{margin:0 0 14px;font-size:24px;color:var(--muted)}
-.ptry{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
-.ptc{background:#F6FAFD;border-radius:18px;padding:12px;display:flex;flex-direction:column;gap:10px}
-.ptc img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;cursor:zoom-in}
-.ptc img.r{border-radius:50%}
-.ptc span{font-size:18px;line-height:1.45;flex:1}
-.ptc .copy{align-self:flex-start;margin:0}
 .pbad{background:#F3F5F7;flex:0 0 300px !important}
 .pbad p{color:var(--muted);text-decoration:line-through;text-decoration-color:#E2448F}
 .pgood{background:#FFFBEA;border:2px solid var(--yellow)}
@@ -819,29 +809,16 @@ const idea=()=>`<div class="try idea"><span class="lbl">הקיר המשותף</s
 const frame=u=>`<iframe src="${u}" allowfullscreen allow="fullscreen; clipboard-write"></iframe>`;
 /* תמונות לדוגמה: שמים קובץ בתיקייה assets/lesson2 בשם שמופיע כאן, והוא מופיע בחלון */
 const IMG='assets/lesson1/';
-/* נסו בעצמכם: תמונות מהמצגת ופרומפט לכל אחת */
-const PTRY=[
- {i:'fruit.png',r:1,p:'צור צלחת של פירות חתוכים, מסודרים כך שהם יוצרים את האותיות AI. צילום מלמעלה, אור טבעי.'},
- {i:'chair.png',r:1,p:'צור כורסה עשויה מתות אחד ענק, בסלון לבן ומואר. צילום עיצוב פנים.'},
- {i:'grapes.png',r:1,p:'צור פרצוף של איש שכולו עשוי מענבים סגולים וירוקים, עם עלי גפן בשיער ושפם מקנוקנות. בסגנון ציור קלאסי.'},
- {i:'shoes-3.jpg',p:'צור נעל ספורט שכולה עשויה מתפוח אדום ומבריק. צילום מוצר על רקע חלק.'},
- {i:'comic.jpg',p:'צור קומיקס של 3 ריבועים עם טקסט בעברית. בראשון ילדה אומרת לאמא שלה: "אני אוהבת חתולים". בשני חתול סיאמי חושב: "איזו ילדה חכמה". בשלישי היא מחבקת אותו ואומרת: "אתה חמוד".'}
-];
-function ptabsInit(){const b=document.getElementById('mBody');b.querySelectorAll('.ptabs button').forEach(x=>x.onclick=()=>{b.querySelectorAll('.ptabs button').forEach(y=>y.classList.toggle('on',y===x));b.querySelectorAll('.ptp').forEach(t=>t.hidden=t.dataset.pt!==x.dataset.pt)})}
 const gal=(items,cls='')=>`<div class="gal ${cls}" style="--n:${items.length}">${items.map(([f,c],i)=>`<figure class="fig">${i?'<span class="arr">&larr;</span>':''}<figcaption class="cap">${c}</figcaption><div class="ph"><img src="${IMG+f}.jpg" alt="" onload="this.parentNode.classList.add('has')" onerror="this.remove()"><em>מקום לתמונה<br><small>${f}.jpg</small></em></div></figure>`).join('')}</div>`;
 const WIN={
  survey:()=>({t:'כמה אנחנו משתמשים בבינה מלאכותית?',u:SURVEY.form,h:`<div class="svtabs"><button class="on" data-sv="q">סריקה</button><button data-sv="r">תוצאות</button></div><div id="svBody"></div>`,after:svInit}),
  intro:()=>({t:'נעים להכיר',h:`<div class="aboutme"><div class="me"><div class="ph"></div><div><div class="eye">מי מעבירה את ההשתלמות</div><b>שירה רוט זליקוביץ</b><span class="role">מומחית בטכנולוגיות בחינוך ובהוראה יצירתית עם AI</span><div class="facts"><span>גרה בחריש</span><span>עובדת במשרד החינוך</span></div><p>אחרי שנים רבות בעולמות התקשורת החזותית, הפרסום והשיווק, עברתי לעולם של טכנולוגיות בלמידה.</p><p>ואני פשוט עפה על AI, ועל הדרך שבה הוא מאפשר לנו ליצור דברים שפעם נראו בלתי אפשריים.</p></div></div>
   <div class="you"><h3>ועכשיו אתם</h3><ol><li>השם שלי</li><li>בית הספר שלי</li><li>מה אני מלמד/ת</li></ol></div></div>`}),
- prompt:()=>({t:'איך כותבים פרומפט טוב',after:ptabsInit,h:`
-  <div class="ptabs"><button type="button" class="on" data-pt="a">איך כותבים</button><button type="button" data-pt="b">נסו בעצמכם: תמונות</button></div>
-  <div class="ptp" data-pt="a">
+ prompt:()=>({t:'איך כותבים פרומפט טוב',h:`
   <div class="formula"><span>מי אתה</span><i>+</i><span>מה לעשות</span><i>+</i><span>למי</span><i>+</i><span>איך זה ייראה</span><i>+</i><span>מה לא</span></div>
   <div class="pcmp"><div class="pbad"><small>במקום</small><p>תכין לי דף עבודה על שברים.</p></div><span class="parr">&larr;</span>
    <div class="pgood"><small>כותבים</small><span class="pt">אתה מורה מנוסה למתמטיקה. הכן דף עבודה על שברים פשוטים לכיתה ה׳, עם 8 תרגילים מהקל לקשה ושאלה אחת מחיי היומיום. בלי תשובות בדף.</span><button class="copy" type="button">העתקה</button></div></div>
-  ${tryIt('שפרו פרומפט שלכם: הוסיפו לו "למי" ו"איך זה ייראה", ובדקו מה השתנה.',GEMINI)}</div>
-  <div class="ptp" data-pt="b" hidden><p class="plead">בחרו תמונה, העתיקו את הפרומפט שלה ל-Gemini, ואז שנו בו דבר אחד. הצליח? החליפו לנושא מהשיעור שלכם.</p>
-   <div class="ptry">${PTRY.map(t=>`<div class="ptc"><img src="assets/deck/ex/${t.i}" alt=""${t.r?' class="r"':''}><span>${t.p}</span><button class="copy" type="button">העתקה</button></div>`).join('')}</div></div>`}),
+  ${tryIt('שפרו פרומפט שלכם: הוסיפו לו "למי" ו"איך זה ייראה", ובדקו מה השתנה.',GEMINI)}`}),
  sched:()=>({t:'משימות מתוזמנות',u:LINKS.sched,h:`
   ${gal([['sched-1','כותבים בקשה עם זמן: "כל יום ראשון ב-7:00..."'],['sched-2','Gemini מאשר שהמשימה נשמרה'],['sched-3','בהגדרות: עורכים או עוצרים']])}
   <div class="try"><span class="lbl">המשימה</span><span class="txt">פותחים את הדף השיתופי, כותבים בו משימה מתוזמנת אחת שבניתם, ומה היא שולחת לכם.</span>${LINKS.sched?`<a href="${LINKS.sched}" target="_blank" rel="noopener">לדף השיתופי</a>`:''}</div>`}),
@@ -1200,7 +1177,7 @@ document.addEventListener('click',e=>{if(e.target.closest('#mClose'))closeWin()}
 document.addEventListener('click',e=>{if(e.target.id==='modal')closeWin()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(closeZoom())return;const ov=document.querySelector('.padov.on');if(ov){padClose();return}if(padShowOpen()){padShowClose();return}closeWin()}});
 /* ===== הגדלת תמונה ===== */
-document.addEventListener('click',e=>{const im=e.target.closest('.fig .ph img,.pcard img,.pcimg,.ptc img');if(!im)return;e.stopPropagation();const z=document.getElementById('zoom');z.querySelector('img').src=im.src;z.classList.add('on')},true);
+document.addEventListener('click',e=>{const im=e.target.closest('.fig .ph img,.pcard img,.pcimg');if(!im)return;e.stopPropagation();const z=document.getElementById('zoom');z.querySelector('img').src=im.src;z.classList.add('on')},true);
 document.getElementById('zoom').addEventListener('click',()=>document.getElementById('zoom').classList.remove('on'));
 function closeZoom(){const z=document.getElementById('zoom');if(z.classList.contains('on')){z.classList.remove('on');return true}return false}
 
