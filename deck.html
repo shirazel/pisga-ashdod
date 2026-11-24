@@ -324,7 +324,7 @@ function show(n){n=Math.max(0,Math.min(S.length-1,n));const same=n===i;i=n;S.for
   S[i].querySelectorAll('iframe[data-src]').forEach(f=>{if(!f.src)f.src=f.dataset.src});
   /* טוענים מראש את האתר בשקופית הבאה */
   if(S[i+1])S[i+1].querySelectorAll('iframe[data-src]').forEach(f=>{if(!f.src)f.src=f.dataset.src});
-  S.forEach((s,k)=>s.querySelectorAll('video').forEach(v=>{if(k===i){v.currentTime=0;v.play().catch(()=>{})}else v.pause()}));
+  S.forEach((s,k)=>s.querySelectorAll('.media video').forEach(v=>{if(k===i){v.currentTime=0;v.play().catch(()=>{})}else v.pause()}));
   document.querySelectorAll('.vc video').forEach(v=>{if(!v.closest('.s.on')){v.pause();v.closest('.vc').classList.remove('playing')}});
   S[i].querySelectorAll('.vc video').forEach(v=>{v.currentTime=0});
   if(i===0&&!same)heroRun();
