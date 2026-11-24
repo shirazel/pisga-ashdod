@@ -56,6 +56,7 @@ p{margin:0}
 #nav{position:absolute;bottom:24px;left:40px;display:flex;gap:10px;align-items:center;z-index:5;font:500 19px 'JetBrains Mono';color:var(--muted)}
 #nav button{width:50px;height:50px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--txt);font-size:24px;cursor:pointer}
 #nav button:focus-visible,.btn:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+#nav .fsb{width:auto;border-radius:999px;padding:0 20px;font:700 19px 'Rubik';margin-right:10px;background:linear-gradient(90deg,var(--cyan),var(--violet));color:var(--bg);border:0}
 #bar{position:absolute;top:0;right:0;height:4px;background:linear-gradient(90deg,var(--pink),var(--violet),var(--cyan));z-index:5;transition:width .4s;box-shadow:0 0 14px var(--violet)}
 
 /* ===== פתיחה: הטרמינל בונה ===== */
@@ -239,7 +240,7 @@ p{margin:0}
 <div id="slides"></div>
 <div class="hud" aria-hidden="true"><i></i><i></i><i></i><i></i><div class="st"><span class="dot"></span><b>LIVE</b><span>פסגה אשדוד</span><span>24.11</span><span id="hudn"></span></div></div>
 <div id="lb" role="dialog" aria-modal="true" aria-label="הגדלה"><button class="lbx" type="button" aria-label="סגירה">&times;</button><div class="lbin"></div></div>
-<div id="nav"><button id="prev" type="button" aria-label="השקופית הקודמת">&rarr;</button><span id="cnt"></span><button id="next" type="button" aria-label="השקופית הבאה">&larr;</button></div>
+<div id="nav"><button id="prev" type="button" aria-label="השקופית הקודמת">&rarr;</button><span id="cnt"></span><button id="next" type="button" aria-label="השקופית הבאה">&larr;</button><button id="fsb" class="fsb" type="button" aria-label="מסך מלא">&#x26F6; מסך מלא</button></div>
 </div></div>
 
 <script>
@@ -344,6 +345,9 @@ function show(n){if(LB.classList.contains('on'))lbClose();n=Math.max(0,Math.min(
   try{history.replaceState(null,'','#'+(i+1))}catch(e){}}
 document.getElementById('next').onclick=()=>show(i+1);
 document.getElementById('prev').onclick=()=>show(i-1);
+function fsSet(){const b=document.getElementById('fsb');b.innerHTML=document.fullscreenElement?'&#x2715; יציאה':'&#x26F6; מסך מלא'}
+document.getElementById('fsb').onclick=()=>{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>{})};
+document.addEventListener('fullscreenchange',fsSet);
 addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('input,textarea'))return;
   if(LB.classList.contains('on')){if(e.key==='Escape'){e.preventDefault();lbClose()}return}
   if(['ArrowLeft','PageDown',' '].includes(e.key)){e.preventDefault();show(i+1)}
