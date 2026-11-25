@@ -279,6 +279,12 @@ const SLIDES=[
    {nm:'Gemini',c:'#60A5FA',best:'מחובר לגוגל',h:'עובד עם הדרייב, הג\'ימייל והיומן שלכם',p:'וגם Storybook, למידה מודרכת ומשימות מתוזמנות.'},
    {nm:'ChatGPT',c:'#34D399',best:'זוכר אתכם',h:'זוכר מה סיפרתם לו, ומלמד במצב לימוד',p:'וגם פרויקטים, משימות ויצירת תמונות.'},
    {nm:'Claude',c:'#FB923C',best:'בונה',h:'בונה משחקים, לומדות ואתרים',p:'וגם כותב טבעי בעברית, וסקילים שמלמדים אותו את העבודה שלכם.'}]},
+ {k:'sec',n:'!',h:'ממה צריך<br>להיזהר?',lead:'חשוב להיות ביקורתיים, להפעיל מחשבה ולהיזהר.'},
+ {k:'tools',h:'מציאות מזויפת',lead:'מה אמיתי ומה לא? כל מה שראינו הערב, אפשר גם לזייף.',items:[
+   {h:'הבינה טועה בביטחון',p:'ממציאה עובדות, מקורות וציטוטים. בודקים תמיד.',i:'<path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/>'},
+   {h:'תמונות וסרטונים מזויפים',p:'פנים, קול וסרטון של אדם אמיתי, בלי שהוא אמר מילה.',i:'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>'},
+   {h:'פרטיות',p:'לא מעלים שמות, ציונים ופרטים של תלמידים.',i:'<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>'}]},
+ {k:'live',chip:'קמפיין',h:'התלמידים שלכם הם דור העתיד...',p:'הקמפיין של איילת זורר, שמשוחחת עם עצמה הצעירה.',li:['מה אמיתי כאן?','איך זה נעשה?','מה נלמד את התלמידים?'],url:'https://youtu.be/qGzba7SFM-c',embed:'https://www.youtube-nocookie.com/embed/qGzba7SFM-c',show:'youtube.com · איילת זורר'},
  {k:'end',h:'מתחילים',flow:['פרומפט טוב','כלים שלא הכרתם','קבוצות אתגר','מקרינים']}
 ];
 
@@ -305,7 +311,7 @@ const R={
  then:d=>`<section class="s then">${[d.a,d.b].map((x,k)=>`${k?'<span class="parr">&larr;</span>':''}<figure class="${k?'now':''}"><img class="rimg" src="${x.i}" alt=""><figcaption><b>${x.t}</b>${x.p}</figcaption></figure>`).join('')}</section>`,
  statement:d=>`<section class="s statement"><h2>${d.a}</h2><h2 class="grad">${d.b}</h2></section>`,
  live:d=>`<section class="s live"><div class="txt"><span class="chip">${d.chip||'דוגמה אמיתית'}</span><h2>${d.h}</h2><p>${d.p}</p><ul>${d.li.map(x=>`<li>${x}</li>`).join('')}</ul><a class="btn" href="${d.url}" target="_blank" rel="noopener">לפתיחה בחלון חדש</a></div>
-   <div class="browser"><div class="bb"><i></i><i></i><i></i><span class="url">${d.show}</span></div><div class="vw"><iframe data-src="${d.url}" title="${esc(d.h)}" loading="lazy"></iframe></div></div></section>`,
+   <div class="browser"><div class="bb"><i></i><i></i><i></i><span class="url">${d.show}</span></div><div class="vw"><iframe data-src="${d.embed||d.url}" title="${esc(d.h)}" loading="lazy" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe></div></div></section>`,
  tools:d=>`<section class="s tools"><h2>${d.h}</h2><p class="lead">${d.lead}</p><div class="tgrid">${d.items.map(t=>`<div class="tcard glass"><span class="ic"><svg viewBox="0 0 24 24">${t.i}</svg></span><h3>${t.h}</h3><p>${t.p}</p></div>`).join('')}</div></section>`,
  sec:d=>`<section class="s sec"><div class="num">// ${d.n}</div><h2 class="grad">${d.h}</h2>${d.lead?`<p class="lead">${d.lead}</p>`:''}</section>`,
  topic:d=>`<section class="s topic"><div class="txt"><span class="chip">${d.chip}</span><h2>${d.h}</h2>${d.what?`<p class="what">${d.what}</p>`:''}
